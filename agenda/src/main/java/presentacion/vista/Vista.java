@@ -16,6 +16,8 @@ import dto.PersonaDTO;
 import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Vista
 {
@@ -37,43 +39,59 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 829, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 262);
+		panel.setBounds(0, 0, 803, 351);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 414, 182);
+		spPersonas.setBounds(10, 11, 793, 290);
 		panel.add(spPersonas);
 		
 		modelPersonas = new DefaultTableModel(null,nombreColumnas);
-		tablaPersonas = new JTable(modelPersonas);
-		
-		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+		tablaPersonas = new JTable(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"Nombre y apellido", "Telefono", "Email"
+			}
+		));
 		
 		spPersonas.setViewportView(tablaPersonas);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 228, 89, 23);
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAgregar.setBounds(192, 312, 89, 23);
 		panel.add(btnAgregar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(109, 228, 89, 23);
+		btnEditar.setBounds(291, 312, 89, 23);
 		panel.add(btnEditar);
 		
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(208, 228, 89, 23);
+		btnBorrar.setBounds(390, 312, 89, 23);
 		panel.add(btnBorrar);
 		
 		btnReporte = new JButton("Reporte");
-		btnReporte.setBounds(307, 228, 89, 23);
+		btnReporte.setBounds(489, 312, 89, 23);
 		panel.add(btnReporte);
 	}
 	
@@ -137,7 +155,13 @@ public class Vista
 		{
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			Object[] fila = {nombre, tel};
+			String email = p.getEmail();
+			String fecha = p.getFecha();
+			String calle = p.getCalle();
+			String altura = p.getAltura();
+			String piso = p.getPiso();
+			String tipoD = p.getTipoDomicilio();
+			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD};
 			this.getModelPersonas().addRow(fila);
 		}
 		

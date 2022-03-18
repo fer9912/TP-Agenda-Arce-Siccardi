@@ -5,10 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import modelo.Agenda;
+import persistencia.conexion.Conexion;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import dto.PersonaDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Controlador implements ActionListener
 {
@@ -16,6 +19,7 @@ public class Controlador implements ActionListener
 		private List<PersonaDTO> personasEnTabla;
 		private VentanaPersona ventanaPersona; 
 		private Agenda agenda;
+		private Logger log = LogManager.getLogger(Conexion.class);	
 		
 		public Controlador(Vista vista, Agenda agenda)
 		{
@@ -35,8 +39,15 @@ public class Controlador implements ActionListener
 		private void guardarPersona(ActionEvent p) {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
+			String email = this.ventanaPersona.getEmail().getText();
+			String fecha = ventanaPersona.getFechaC().getText();
+			String calle = this.ventanaPersona.getCalle().getText();
+			String altura = ventanaPersona.getAltura().getText();
+			String tipoD = this.ventanaPersona.getTipoDomicilio().getText();
+			String piso = ventanaPersona.getPiso().getText();
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, email, fecha, calle, altura, piso, tipoD);
 			this.agenda.agregarPersona(nuevaPersona);
+			log.info(nuevaPersona.toString());
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
 		}
