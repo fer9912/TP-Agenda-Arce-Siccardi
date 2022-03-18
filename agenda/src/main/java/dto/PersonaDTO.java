@@ -7,22 +7,17 @@ public class PersonaDTO
 	private String telefono;
 	private String email;
 	private String fecha;
-	private String calle;
-	private String altura;
-	private String piso;
-	private String tipoDomicilio;
+	private int domicilio;
+	private DomicilioDTO domicilioDTO;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String fecha, String calle, String altura, String piso, String tipoD)
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String fecha, int domicilio)
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.email = email;
 		this.fecha = fecha;
-		this.calle = calle;
-		this.altura = altura;
-		this.piso = piso;
-		this.tipoDomicilio = tipoD;
+		this.domicilio = domicilio;
 	}
 	
 	public int getIdPersona() 
@@ -66,40 +61,26 @@ public class PersonaDTO
 		this.fecha = fecha;
 	}
 
-	public String getCalle() {
-		return calle;
-	}
-
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-
-	public String getAltura() {
-		return altura;
-	}
-
-	public void setAltura(String altura) {
-		this.altura = altura;
-	}
-
-	public String getPiso() {
-		return piso;
-	}
-
-	public void setPiso(String piso) {
-		this.piso = piso;
-	}
-
-	public String getTipoDomicilio() {
-		return tipoDomicilio;
-	}
-
-	public void setTipoDomicilio(String tipoDomicilio) {
-		this.tipoDomicilio = tipoDomicilio;
-	}
-
 	public void setTelefono(String telefono) 
 	{
 		this.telefono = telefono;
 	}
+
+	public int getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(int domicilio) {
+		this.domicilio = domicilio;
+	}
+
+	public DomicilioDTO getDomicilioDTO() {
+		return domicilioDTO;
+	}
+
+	public void setDomicilioDTO(DomicilioDTO domicilioDTO) {
+		this.domicilioDTO = domicilioDTO;
+	}
+	
+	
 }

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dto.DomicilioDTO;
 import dto.PersonaDTO;
 
 import javax.swing.JButton;
@@ -141,14 +142,15 @@ public class Vista
 
 		for (PersonaDTO p : personasEnTabla)
 		{
+			DomicilioDTO d = p.getDomicilioDTO();
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
 			String email = p.getEmail();
 			String fecha = p.getFecha();
-			String calle = p.getCalle();
-			String altura = p.getAltura();
-			String piso = p.getPiso();
-			String tipoD = p.getTipoDomicilio();
+			String calle = d.getCalle();
+			String altura = d.getAltura();
+			String piso = d.getPiso();
+			String tipoD = d.getTipoDomicilio();
 			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD};
 			this.getModelPersonas().addRow(fila);
 		}
