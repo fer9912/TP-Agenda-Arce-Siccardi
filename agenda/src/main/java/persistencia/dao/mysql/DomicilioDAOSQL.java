@@ -15,7 +15,7 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.DomicilioDAO;
 
 public class DomicilioDAOSQL implements DomicilioDAO{
-	private static final String insert = "INSERT INTO domicilio(idDomicilio, calle, altura, piso, tipo_domicilio ) VALUES(?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO domicilio(idDomicilio, calle, altura, piso, tipo_domicilio, localidad ) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String getD = "SELECT d.idDomicilio FROM domicilio d WHERE d.Calle = ? AND d.Altura = ? AND d.Piso = ? AND d.Tipo_Domicilio = ?";
 	private static final String getId = "SELECT d.* FROM domicilio d WHERE d.idDomicilio = ?";
 	private Logger log = LogManager.getLogger(DomicilioDAOSQL.class);	
@@ -33,6 +33,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			statement.setString(3, domicilio.getAltura());
 			statement.setString(4, domicilio.getPiso());
 			statement.setString(5, domicilio.getTipoDomicilio());
+			statement.setInt(6, domicilio.getLocalidad());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
