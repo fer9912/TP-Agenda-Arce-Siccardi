@@ -107,6 +107,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 		String altura = resultSet.getString("Altura");
 		String piso = resultSet.getString("Piso");
 		String tipo = resultSet.getString("Tipo_Domicilio");
-		return new DomicilioDTO(id, calle, altura, piso, tipo);
+		int localidad = resultSet.getInt("Localidad");
+		return new DomicilioDTO(id, calle, altura, piso, tipo, localidad);
 	}
 }

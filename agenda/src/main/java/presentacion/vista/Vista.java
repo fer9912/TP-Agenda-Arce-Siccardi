@@ -28,7 +28,7 @@ public class Vista
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio"};
+	private  String[] nombreColumnas = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad"};
 
 	public Vista() 
 	{
@@ -151,7 +151,9 @@ public class Vista
 			String altura = d.getAltura();
 			String piso = d.getPiso();
 			String tipoD = d.getTipoDomicilio();
-			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD};
+			String tipoContacto = p.getTipoContacto();
+			String localidad = p.getLocalidad().getLocalidad();
+			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD, tipoContacto, localidad};
 			this.getModelPersonas().addRow(fila);
 		}
 		

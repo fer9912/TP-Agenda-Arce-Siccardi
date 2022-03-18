@@ -34,6 +34,8 @@ public class Controlador implements ActionListener
 		}
 		
 		private void ventanaAgregarPersona(ActionEvent a) {
+			this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
+			this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
 			this.ventanaPersona.mostrarVentana();
 		}
 
@@ -43,7 +45,8 @@ public class Controlador implements ActionListener
 			String email = this.ventanaPersona.getEmail().getText();
 			String fecha = ventanaPersona.getFechaC().getText();			
 			int domicilio = this.guardarDomicilio();
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, email, fecha, domicilio);
+			int tipo = Integer.parseInt(this.ventanaPersona.getTipoDeContactos().getSelectedItem().toString().substring(0,1));
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, email, fecha, domicilio, tipo);
 			this.agenda.agregarPersona(nuevaPersona);
 			log.info(nuevaPersona.toString());
 			this.refrescarTabla();
@@ -55,7 +58,8 @@ public class Controlador implements ActionListener
 			String altura = ventanaPersona.getAltura().getText();
 			String tipoD = this.ventanaPersona.getTipoDomicilio().getText();
 			String piso = ventanaPersona.getPiso().getText();
-			DomicilioDTO nuevoDomicilio = new DomicilioDTO(0,calle,altura,piso,tipoD);
+			int localidad = Integer.parseInt(this.ventanaPersona.getLocalidad().getSelectedItem().toString().substring(0,1));
+			DomicilioDTO nuevoDomicilio = new DomicilioDTO(0,calle,altura,piso,tipoD, localidad);
 			return this.agenda.agregarDomicilio(nuevoDomicilio);			
 			
 		}
@@ -87,12 +91,24 @@ public class Controlador implements ActionListener
 			this.personasEnTabla = agenda.obtenerPersonas();
 			for(PersonaDTO p : this.personasEnTabla ) {
 				setDomicilio(p);
+				setTipoContacto(p);
+				setLocalidad(p);
 			}
 			this.vista.llenarTabla(this.personasEnTabla);
 		}
 
-		private void setDomicilio(PersonaDTO persona) {
-			persona.setDomicilioDTO(this.agenda.getDomicilio(persona.getDomicilio()));
+		private void setLocalidad(PersonaDTO p) {
+		p.setLocalidad(this.agenda.getLocalidad(p.getDomicilioDTO().getLocalidad()));
+			
+		}
+
+		private void setTipoContacto(PersonaDTO p) {
+			p.setTipoContacto(this.agenda.getTipoContacto(p.getIdTipoContacto()).getTipoDeContacto());
+			
+		}
+
+		private void setDomicilio(PersonaDTO p) {
+			p.setDomicilioDTO(this.agenda.getDomicilio(p.getDomicilio()));
 		}
 
 		@Override

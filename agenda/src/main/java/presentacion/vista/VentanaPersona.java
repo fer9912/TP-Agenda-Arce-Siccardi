@@ -6,10 +6,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import dto.DomicilioDTO;
+import dto.LocalidadDTO;
+import dto.PersonaDTO;
+import dto.TipoDeContactoDTO;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class VentanaPersona extends JFrame 
 {
@@ -27,7 +36,11 @@ public class VentanaPersona extends JFrame
 	private JTextField piso;
 	private JTextField tipoDomicilio;
 	private JButton btnAgregarPersona;
-	
+	private JComboBox<String> tipoDeContactos;
+	private JComboBox<String> localidad;
+	private DefaultComboBoxModel<String> modelTipos = new DefaultComboBoxModel<String>();
+	private DefaultComboBoxModel<String> modelLocalidades = new DefaultComboBoxModel<String>();
+
 	public static VentanaPersona getInstance()
 	{
 		if(INSTANCE == null)
@@ -105,7 +118,10 @@ public class VentanaPersona extends JFrame
 		lblDomicilio.setBounds(10, 114, 113, 14);
 		panel.add(lblDomicilio);
 		
-		JComboBox localidad = new JComboBox();
+
+		DefaultComboBoxModel<String> modelLocalidad = this.getModelLocalidades();
+		localidad = new JComboBox();
+		localidad.setModel(modelLocalidad);
 		localidad.setBounds(209, 209, 159, 22);
 		panel.add(localidad);
 		
@@ -149,7 +165,8 @@ public class VentanaPersona extends JFrame
 		lblTipoDeContacto.setBounds(10, 262, 113, 14);
 		panel.add(lblTipoDeContacto);
 		
-		JComboBox tipoDeContactos = new JComboBox();
+		DefaultComboBoxModel<String> model = this.getModelTipos();
+		tipoDeContactos = new JComboBox<String>(model);
 		tipoDeContactos.setBounds(160, 259, 208, 22);
 		panel.add(tipoDeContactos);
 		
@@ -230,5 +247,57 @@ public class VentanaPersona extends JFrame
 		this.telefono.setText(null);
 		this.dispose();
 	}
+	
+	public void llenarTiposDeContacto(List<TipoDeContactoDTO> tiposDeContacto) {
+		for (TipoDeContactoDTO t : tiposDeContacto)
+		{
+			this.getModelTipos().addElement(t.getIdTipoDeContacto() + " - " + t.getTipoDeContacto());
+		}
+		
+	}
+	
+	public void llenarLocalidades(List<LocalidadDTO> localidades) {
+		for (LocalidadDTO l : localidades)
+		{
+			this.getModelLocalidades().addElement(l.getIdLocalidad() + " - " + l.getLocalidad());
+		}
+		
+	}
+
+	public DefaultComboBoxModel<String> getModelTipos() {
+		return modelTipos;
+	}
+
+	public void setModelTipos(DefaultComboBoxModel<String> modelTipos) {
+		this.modelTipos = modelTipos;
+	}
+	
+	public DefaultComboBoxModel<String> getModelLocalidades() {
+		return modelLocalidades;
+	}
+
+	public void setModelLocalidades(DefaultComboBoxModel<String> modelLocalidades) {
+		this.modelLocalidades = modelLocalidades;
+	}
+
+
+	public JComboBox<String> getTipoDeContactos() {
+		return tipoDeContactos;
+	}
+
+	public JComboBox<String> getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(JComboBox<String> localidad) {
+		this.localidad = localidad;
+	}
+
+	public void setTipoDeContactos(JComboBox<String> tipoDeContactos) {
+		this.tipoDeContactos = tipoDeContactos;
+	}
+	
+
+
 }
 

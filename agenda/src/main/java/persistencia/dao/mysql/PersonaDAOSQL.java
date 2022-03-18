@@ -13,9 +13,9 @@ import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fecha_cumpleaños, domicilio) VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fecha_cumpleaños, domicilio, tipo_contacto) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String readall = "select p.*,d.* from personas p inner join domicilio d on d.idDomicilio = p.domicilio ";
+	private static final String readall = "SELECT * FROM personas";
 		
 	public boolean insert(PersonaDTO persona)
 	{
@@ -31,6 +31,7 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(4, persona.getEmail());
 			statement.setString(5, persona.getFecha());
 			statement.setInt(6, persona.getDomicilio());
+			statement.setInt(7, persona.getIdTipoContacto());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -101,6 +102,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		String email = resultSet.getString("Email");
 		String fecha = resultSet.getString("Fecha_Cumpleaños");
 		int idDomicilio = resultSet.getInt("Domicilio");
-		return new PersonaDTO(id, nombre, tel, email, fecha, idDomicilio);
+		int idTipoDeContacto = resultSet.getInt("Tipo_Contacto");
+		return new PersonaDTO(id, nombre, tel, email, fecha, idDomicilio, idTipoDeContacto);
 	}
 }
