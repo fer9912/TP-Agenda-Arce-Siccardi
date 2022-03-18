@@ -85,8 +85,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
+			while(resultSet.next()){
 				personas.add(getPersonaDTO(resultSet));
 			}
 		} 
