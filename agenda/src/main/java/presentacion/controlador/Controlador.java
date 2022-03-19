@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
@@ -67,7 +68,7 @@ public class Controlador implements ActionListener {
 	}
 
 	private void guardarPersona(ActionEvent p) {
-		if (validateEmail()) {
+		if (validateTextField(ventanaPersona.getEmail(), "email") && validateTextField(ventanaPersona.getFechaC(), "date")) {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
 			String email = this.ventanaPersona.getEmail().getText();
@@ -84,31 +85,8 @@ public class Controlador implements ActionListener {
 
 	}
 
-	private boolean validateEmail() {
-		Border wrongBorder = BorderFactory.createLineBorder(Color.RED);
-		if (!validateText(ventanaPersona.getEmail().getText())) {
-			ventanaPersona.getEmail().setBorder(wrongBorder);
-			return false;
-		} else {
-			ventanaPersona.getEmail().setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-			return true;
-		}
-	}
-
-	private boolean validateEmailToEdit() {
-		Border wrongBorder = BorderFactory.createLineBorder(Color.RED);
-		if (!validateText(ventanaPersona.getEmail().getText())) {
-			ventanaEditarPersona.getEmail().setBorder(wrongBorder);
-			return false;
-		} else {
-			ventanaEditarPersona.getEmail()
-					.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-			return true;
-		}
-	}
-
 	private void guardarCambiosPersona(ActionEvent g) {
-		if (validateEmailToEdit()) {
+		if (validateTextField(ventanaEditarPersona.getEmail(), "email") && validateTextField(ventanaEditarPersona.getFechaC(), "date")) {
 			String nombre = this.ventanaEditarPersona.getTxtNombre().getText();
 			String tel = ventanaEditarPersona.getTxtTelefono().getText();
 			String email = this.ventanaEditarPersona.getEmail().getText();
@@ -196,14 +174,25 @@ public class Controlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	}
 
-	private boolean validateText(String text) {
-		String regEx = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-				+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+	private boolean validateText(String text, String type) {
+		String regEx = (type == "email") ? "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+				+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$" : "\\d{4}-\\d{2}-\\d{2}";
 		Pattern emailPattern = Pattern.compile(regEx);
 		Matcher matcher = emailPattern.matcher(text);
 		if (!matcher.matches()) {
 			return false;
 		} else {
+			return true;
+		}
+	}
+	
+	private boolean validateTextField(JTextField textField, String type) {
+		Border wrongBorder = BorderFactory.createLineBorder(Color.RED);
+		if (!validateText(textField.getText(), type)) {
+			textField.setBorder(wrongBorder);
+			return false;
+		} else {
+			textField.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
 			return true;
 		}
 	}

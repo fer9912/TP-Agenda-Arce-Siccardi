@@ -122,9 +122,9 @@ public class VentanaPersona extends JFrame
 		lblEmail.setBounds(209, 11, 113, 14);
 		panel.add(lblEmail);
 		
-		JLabel lblTelfono_1 = new JLabel("Fecha de cumpleaños");
-		lblTelfono_1.setBounds(209, 62, 113, 14);
-		panel.add(lblTelfono_1);
+		JLabel fecha = new JLabel("Fecha de cumpleaños");
+		fecha.setBounds(209, 62, 113, 14);
+		panel.add(fecha);
 		
 		calle = new JTextField();
 		calle.setColumns(10);
