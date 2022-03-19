@@ -18,6 +18,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 	private static final String insert = "INSERT INTO domicilio(idDomicilio, calle, altura, piso, tipo_domicilio, localidad ) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String getD = "SELECT d.idDomicilio FROM domicilio d WHERE d.Calle = ? AND d.Altura = ? AND d.Piso = ? AND d.Tipo_Domicilio = ?";
 	private static final String getId = "SELECT d.* FROM domicilio d WHERE d.idDomicilio = ?";
+	private static final String update = "UPDATE domicilio d set calle = ? , altura = ? , piso = ? , tipo_domicilio = ? , localidad = ? where d.idDomicilio = ?";
 	private Logger log = LogManager.getLogger(DomicilioDAOSQL.class);	
 	
 	@Override
@@ -52,6 +53,40 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 		
 		return idDomicilio;
 	}
+	
+	@Override
+	public int update(DomicilioDTO domicilio) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		int idDomicilio = 0;
+		try
+		{
+			statement = conexion.prepareStatement(update);
+			statement.setString(1, domicilio.getCalle());
+			statement.setString(2, domicilio.getAltura());
+			statement.setString(3, domicilio.getPiso());
+			statement.setString(4, domicilio.getTipoDomicilio());
+			statement.setInt(5, domicilio.getLocalidad());
+			statement.setInt(6, domicilio.getIdDomicilio());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				idDomicilio = get(domicilio.getCalle(), domicilio.getAltura(), domicilio.getPiso(), domicilio.getTipoDomicilio());
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return idDomicilio;
+	}
+
 
 	@Override
 	public int get(String calle, String altura, String piso, String tipo) {

@@ -3,13 +3,13 @@ package dto;
 public class LocalidadDTO 
 {
 	private int idLocalidad;
-	private String localidad;
+	private String nombreLocalidad;
 	private String partido;
 	private String codigoPostal;
 	public LocalidadDTO(int idLocalidad, String localidad, String partido, String codigoPostal)
 	{
 		this.idLocalidad = idLocalidad;
-		this.localidad = localidad;
+		this.nombreLocalidad = localidad;
 		this.partido = partido;
 		this.codigoPostal = codigoPostal;
 	}
@@ -20,11 +20,11 @@ public class LocalidadDTO
 	public void setIdLocalidad(int idLocalidad) {
 		this.idLocalidad = idLocalidad;
 	}
-	public String getLocalidad() {
-		return localidad;
+	public String getNombreLocalidad() {
+		return nombreLocalidad;
 	}
 	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
+		this.nombreLocalidad = localidad;
 	}
 	public String getPartido() {
 		return partido;

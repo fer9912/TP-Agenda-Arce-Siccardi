@@ -32,6 +32,12 @@ public class Agenda
 	{
 		this.persona.insert(nuevaPersona);
 	}
+	
+	public void actualizarPersona(PersonaDTO personaActualizada) {
+		
+		this.persona.update(personaActualizada);
+	}
+	
 
 	public void borrarPersona(PersonaDTO persona_a_eliminar) 
 	{
@@ -61,6 +67,10 @@ public class Agenda
 
 	public int agregarDomicilio(DomicilioDTO nuevoDomicilio) {
 		return this.domicilio.insert(nuevoDomicilio);		
+	}
+	
+	public int actualizarDomicilio(DomicilioDTO Domicilio) {
+		return this.domicilio.update(Domicilio);
 	}
 
 	public DomicilioDTO getDomicilio(int idDomicilio) {

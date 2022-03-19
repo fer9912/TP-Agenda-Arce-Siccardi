@@ -13,12 +13,17 @@ import javax.swing.table.DefaultTableModel;
 
 import dto.DomicilioDTO;
 import dto.PersonaDTO;
+import modelo.Agenda;
 
 import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JToolBar;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Vista
 {
@@ -27,8 +32,16 @@ public class Vista
 	private JButton btnAgregar;
 	private JButton btnBorrar;
 	private JButton btnReporte;
+	private JButton btnEditar;
+	JButton btnVerAgenda;
+	JButton btnVerTipoDeContacto;
+	JButton btnLocalidades;
+	private List<PersonaDTO> personasEnTabla;
+	private Agenda agenda;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad"};
+	private  String[] nombreColumnasPersona = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad"};
+	private  String[] nombreColumnasTipoDeContacto = {"Tipo de Contacto"};
+	private  String[] nombreColumnasLocalidades = {"Localidad","Provincia","Pais"};
 
 	public Vista() 
 	{
@@ -40,20 +53,20 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 829, 400);
+		frame.setBounds(100, 100, 1024, 426);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 803, 351);
+		panel.setBounds(10, 0, 803, 351);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 793, 290);
+		spPersonas.setBounds(10, 11, 783, 290);
 		panel.add(spPersonas);
 		
-		modelPersonas = new DefaultTableModel(null,nombreColumnas);
+		modelPersonas = new DefaultTableModel(null,nombreColumnasPersona);
 		tablaPersonas = new JTable(modelPersonas);
 
 		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
@@ -71,7 +84,7 @@ public class Vista
 		btnAgregar.setBounds(192, 312, 89, 23);
 		panel.add(btnAgregar);
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(291, 312, 89, 23);
 		panel.add(btnEditar);
 		
@@ -82,8 +95,95 @@ public class Vista
 		btnReporte = new JButton("Reporte");
 		btnReporte.setBounds(489, 312, 89, 23);
 		panel.add(btnReporte);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(823, 11, 175, 302);
+		frame.getContentPane().add(panel_1);
+		
+		btnVerAgenda = new JButton("Ver Agenda");
+		btnVerAgenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				modelPersonas = new DefaultTableModel(null,nombreColumnasPersona);
+				tablaPersonas = new JTable(modelPersonas);
+
+				tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+				tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
+				tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
+				tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+				
+				spPersonas.setViewportView(tablaPersonas);
+				
+			}
+		});
+		btnVerAgenda.setBounds(823, 25, 75, 302);
+		panel_1.add(btnVerAgenda);
+		
+		String verTipoContact = "Ver Tipos de Contacto";
+		btnVerTipoDeContacto = new JButton(verTipoContact);
+		btnVerTipoDeContacto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modelPersonas = new DefaultTableModel(null,nombreColumnasTipoDeContacto);
+				tablaPersonas = new JTable(modelPersonas);
+
+				tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+				tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
+				
+				spPersonas.setViewportView(tablaPersonas);
+			}
+		});
+		panel_1.add(btnVerTipoDeContacto);
+		
+		btnLocalidades = new JButton("Ver Localidades");
+		btnLocalidades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				modelPersonas = new DefaultTableModel(null,nombreColumnasLocalidades);
+				tablaPersonas = new JTable(modelPersonas);
+
+				tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+				tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
+				tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(103);
+				tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+				tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(103);
+				tablaPersonas.getColumnModel().getColumn(2).setResizable(false);
+				
+				spPersonas.setViewportView(tablaPersonas);
+			}
+		});
+		panel_1.add(btnLocalidades);
+		
 	}
 	
+	public JButton getBtnVerAgenda() {
+		return btnVerAgenda;
+	}
+
+
+	public void setBtnVerAgenda(JButton btnVerAgenda) {
+		this.btnVerAgenda = btnVerAgenda;
+	}
+
+
+	public JButton getBtnVerTipoDeContacto() {
+		return btnVerTipoDeContacto;
+	}
+
+
+	public void setBtnVerTipoDeContacto(JButton btnVerTipoDeContacto) {
+		this.btnVerTipoDeContacto = btnVerTipoDeContacto;
+	}
+
+
+	public JButton getBtnLocalidades() {
+		return btnLocalidades;
+	}
+
+
+	public void setBtnLocalidades(JButton btnLocalidades) {
+		this.btnLocalidades = btnLocalidades;
+	}
+
+
 	public void show()
 	{
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -119,6 +219,12 @@ public class Vista
 		return btnReporte;
 	}
 	
+	public JButton getBtnEditar() 
+	{
+		return btnEditar;
+	}
+	
+	
 	public DefaultTableModel getModelPersonas() 
 	{
 		return modelPersonas;
@@ -131,7 +237,7 @@ public class Vista
 
 	public String[] getNombreColumnas() 
 	{
-		return nombreColumnas;
+		return nombreColumnasPersona;
 	}
 
 
@@ -152,10 +258,24 @@ public class Vista
 			String piso = d.getPiso();
 			String tipoD = d.getTipoDomicilio();
 			String tipoContacto = p.getTipoContacto();
-			String localidad = p.getLocalidad().getLocalidad();
+			String localidad = p.getLocalidad().getNombreLocalidad();
 			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD, tipoContacto, localidad};
 			this.getModelPersonas().addRow(fila);
 		}
 		
 	}
+	
+	private void setLocalidad(PersonaDTO p) {
+		p.setLocalidad(this.agenda.getLocalidad(p.getDomicilioDTO().getLocalidad()));
+			
+		}
+
+		private void setTipoContacto(PersonaDTO p) {
+			p.setTipoContacto(this.agenda.getTipoContacto(p.getIdTipoContacto()).getTipoDeContacto());
+			
+		}
+
+		private void setDomicilio(PersonaDTO p) {
+			p.setDomicilioDTO(this.agenda.getDomicilio(p.getDomicilio()));
+		}
 }

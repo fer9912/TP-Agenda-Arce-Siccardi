@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,12 +14,18 @@ import dto.DomicilioDTO;
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import dto.TipoDeContactoDTO;
+import utils.TextPrompt;
 
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 
 public class VentanaPersona extends JFrame 
@@ -40,6 +48,7 @@ public class VentanaPersona extends JFrame
 	private JComboBox<String> localidad;
 	private DefaultComboBoxModel<String> modelTipos = new DefaultComboBoxModel<String>();
 	private DefaultComboBoxModel<String> modelLocalidades = new DefaultComboBoxModel<String>();
+	Pattern mailPattern;
 
 	public static VentanaPersona getInstance()
 	{
@@ -55,6 +64,9 @@ public class VentanaPersona extends JFrame
 	private VentanaPersona() 
 	{
 		super();
+		
+		Border wrongBorder = BorderFactory.createLineBorder(Color.RED);
+		Border defaultBorder = null;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 416, 414);
@@ -77,21 +89,45 @@ public class VentanaPersona extends JFrame
 		panel.add(lblTelfono);
 		
 		nombre = new JTextField();
+		TextPrompt placeholderName = new TextPrompt("Juan Perez", nombre);
+		placeholderName.changeAlpha(0.75f);
+	    placeholderName.changeStyle(Font.ITALIC);
 		nombre.setBounds(10, 31, 164, 20);
 		panel.add(nombre);
 		nombre.setColumns(10);
 		
 		telefono = new JTextField();
+		TextPrompt placeholderTel = new TextPrompt("1165387147", telefono);
+		placeholderTel.changeAlpha(0.75f);
+	    placeholderTel.changeStyle(Font.ITALIC);
 		telefono.setBounds(10, 83, 164, 20);
 		panel.add(telefono);
 		telefono.setColumns(10);
 		
 		fechaC = new JTextField();
+		TextPrompt placeholderFecha = new TextPrompt("1999-10-05", fechaC);
+		placeholderFecha.changeAlpha(0.75f);
+	    placeholderFecha.changeStyle(Font.ITALIC);
 		fechaC.setColumns(10);
 		fechaC.setBounds(204, 83, 164, 20);
 		panel.add(fechaC);
 		
 		email = new JTextField();
+		TextPrompt placeholderMail = new TextPrompt("example@gmail.com", email);
+		placeholderMail.changeAlpha(0.75f);
+	    placeholderMail.changeStyle(Font.ITALIC);
+	    email.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(!validateText(email.getText())) {
+					email.setBorder(wrongBorder);
+				}
+				else {
+					email.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+				}
+			}
+		});
 		email.setColumns(10);
 		email.setBounds(204, 31, 164, 20);
 		panel.add(email);
@@ -259,7 +295,7 @@ public class VentanaPersona extends JFrame
 	public void llenarLocalidades(List<LocalidadDTO> localidades) {
 		for (LocalidadDTO l : localidades)
 		{
-			this.getModelLocalidades().addElement(l.getIdLocalidad() + " - " + l.getLocalidad());
+			this.getModelLocalidades().addElement(l.getIdLocalidad() + " - " + l.getNombreLocalidad());
 		}
 		
 	}
@@ -297,6 +333,17 @@ public class VentanaPersona extends JFrame
 		this.tipoDeContactos = tipoDeContactos;
 	}
 	
+	 private boolean validateText(String text) {
+		  String regEx = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
+			        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+		  mailPattern = Pattern.compile(regEx);
+		  Matcher matcher = mailPattern.matcher(text);
+		  if (!matcher.matches()) {
+		   return false;
+		  } else {
+		   return true;
+		  }
+		 }
 
 
 }

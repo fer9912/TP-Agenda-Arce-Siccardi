@@ -34,7 +34,7 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 		{
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, localidad.getIdLocalidad());
-			statement.setString(2, localidad.getLocalidad());
+			statement.setString(2, localidad.getNombreLocalidad());
 			statement.setString(3, localidad.getPartido());
 			statement.setString(4, localidad.getCodigoPostal());
 			if(statement.executeUpdate() > 0)
