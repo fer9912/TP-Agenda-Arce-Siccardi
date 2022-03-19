@@ -48,7 +48,6 @@ public class VentanaPersona extends JFrame
 	private JComboBox<String> localidad;
 	private DefaultComboBoxModel<String> modelTipos = new DefaultComboBoxModel<String>();
 	private DefaultComboBoxModel<String> modelLocalidades = new DefaultComboBoxModel<String>();
-	Pattern mailPattern;
 
 	public static VentanaPersona getInstance()
 	{
@@ -65,8 +64,7 @@ public class VentanaPersona extends JFrame
 	{
 		super();
 		
-		Border wrongBorder = BorderFactory.createLineBorder(Color.RED);
-		Border defaultBorder = null;
+		
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 416, 414);
@@ -105,7 +103,7 @@ public class VentanaPersona extends JFrame
 		telefono.setColumns(10);
 		
 		fechaC = new JTextField();
-		TextPrompt placeholderFecha = new TextPrompt("1999-10-05", fechaC);
+		TextPrompt placeholderFecha = new TextPrompt("AAAA-MM-DD", fechaC);
 		placeholderFecha.changeAlpha(0.75f);
 	    placeholderFecha.changeStyle(Font.ITALIC);
 		fechaC.setColumns(10);
@@ -116,18 +114,6 @@ public class VentanaPersona extends JFrame
 		TextPrompt placeholderMail = new TextPrompt("example@gmail.com", email);
 		placeholderMail.changeAlpha(0.75f);
 	    placeholderMail.changeStyle(Font.ITALIC);
-	    email.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(!validateText(email.getText())) {
-					email.setBorder(wrongBorder);
-				}
-				else {
-					email.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-				}
-			}
-		});
 		email.setColumns(10);
 		email.setBounds(204, 31, 164, 20);
 		panel.add(email);
@@ -333,18 +319,6 @@ public class VentanaPersona extends JFrame
 		this.tipoDeContactos = tipoDeContactos;
 	}
 	
-	 private boolean validateText(String text) {
-		  String regEx = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
-			        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-		  mailPattern = Pattern.compile(regEx);
-		  Matcher matcher = mailPattern.matcher(text);
-		  if (!matcher.matches()) {
-		   return false;
-		  } else {
-		   return true;
-		  }
-		 }
-
-
+	
 }
 

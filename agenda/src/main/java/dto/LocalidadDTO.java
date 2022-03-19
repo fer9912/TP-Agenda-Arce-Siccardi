@@ -4,14 +4,14 @@ public class LocalidadDTO
 {
 	private int idLocalidad;
 	private String nombreLocalidad;
-	private String partido;
-	private String codigoPostal;
-	public LocalidadDTO(int idLocalidad, String localidad, String partido, String codigoPostal)
+	private String provincia;
+	private String pais;
+	public LocalidadDTO(int idLocalidad, String localidad, String provincia, String pais)
 	{
 		this.idLocalidad = idLocalidad;
 		this.nombreLocalidad = localidad;
-		this.partido = partido;
-		this.codigoPostal = codigoPostal;
+		this.provincia = provincia;
+		this.pais = pais;
 	}
 	
 	public int getIdLocalidad() {
@@ -26,17 +26,17 @@ public class LocalidadDTO
 	public void setLocalidad(String localidad) {
 		this.nombreLocalidad = localidad;
 	}
-	public String getPartido() {
-		return partido;
+	public String getProvincia() {
+		return provincia;
 	}
-	public void setPartido(String partido) {
-		this.partido = partido;
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
-	public String getCodigoPostal() {
-		return codigoPostal;
+	public String getPais() {
+		return pais;
 	}
-	public void setCodigoPostal(String codigoPostal) {
-		this.codigoPostal = codigoPostal;
+	public void setPais(String  pais) {
+		this.pais = pais;
 	}
 	
 

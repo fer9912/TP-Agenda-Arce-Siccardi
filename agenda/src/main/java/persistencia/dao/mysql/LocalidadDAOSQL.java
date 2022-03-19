@@ -19,7 +19,7 @@ import persistencia.dao.interfaz.DomicilioDAO;
 import persistencia.dao.interfaz.LocalidadDAO;
 
 public class LocalidadDAOSQL implements LocalidadDAO{
-	private static final String insert = "INSERT INTO localidad(idLocalidad, localidad, partido, codigo_postal) VALUES(?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO localidad(idLocalidad, localidad, provincia, pais) VALUES(?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM localidad WHERE idLocalidad = ?";
 	private static final String readall = "SELECT * FROM localidad";
 	private static final String getId = "SELECT * FROM localidad WHERE idLocalidad = ?";
@@ -35,8 +35,8 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, localidad.getIdLocalidad());
 			statement.setString(2, localidad.getNombreLocalidad());
-			statement.setString(3, localidad.getPartido());
-			statement.setString(4, localidad.getCodigoPostal());
+			statement.setString(3, localidad.getProvincia());
+			statement.setString(4, localidad.getPais());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -104,9 +104,9 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 	{
 		int id = resultSet.getInt("idLocalidad");
 		String localidad = resultSet.getString("Localidad");
-		String partido = resultSet.getString("Partido");
-		String codigoPostal = resultSet.getString("Codigo_Postal");
-		return new LocalidadDTO(id, localidad, partido, codigoPostal);
+		String provincia = resultSet.getString("Provincia");
+		String pais = resultSet.getString("Pais");
+		return new LocalidadDTO(id, localidad, provincia, pais);
 	}
 
 	@Override
@@ -114,28 +114,21 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		Conexion conexion = Conexion.getConexion();
-		List<LocalidadDTO> tiposDeContacto = new ArrayList<LocalidadDTO>();
+		List<LocalidadDTO> localidades = new ArrayList<LocalidadDTO>();
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(getId);
 			statement.setInt(1, idLocalidad);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()){
-				tiposDeContacto.add(getTipoDeContactoDTO(resultSet));
+				localidades.add(getLocalidadDTO(resultSet));
 			}
-			return tiposDeContacto.get(0);
+			return localidades.get(0);
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 			return null;		
 		}
-	}
-	private LocalidadDTO getTipoDeContactoDTO(ResultSet resultSet) throws SQLException {
-		int id = resultSet.getInt("idLocalidad");
-		String localidad = resultSet.getString("Localidad");
-		String partido = resultSet.getString("Partido");
-		String codigoPostal = resultSet.getString("Codigo_Postal");
-		return new LocalidadDTO(id, localidad, partido, codigoPostal);
 	}
 }
