@@ -19,6 +19,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 	private static final String getD = "SELECT d.idDomicilio FROM domicilio d WHERE d.Calle = ? AND d.Altura = ? AND d.Piso = ? AND d.Tipo_Domicilio = ?";
 	private static final String getId = "SELECT d.* FROM domicilio d WHERE d.idDomicilio = ?";
 	private static final String update = "UPDATE domicilio d set calle = ? , altura = ? , piso = ? , tipo_domicilio = ? , localidad = ? where d.idDomicilio = ?";
+	private static final String delete = "DELETE FROM domicilio where idDomicilio = ? ";
 	private Logger log = LogManager.getLogger(DomicilioDAOSQL.class);	
 	
 	@Override
@@ -39,6 +40,33 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			{
 				conexion.commit();
 				idDomicilio = get(domicilio.getCalle(), domicilio.getAltura(), domicilio.getPiso(), domicilio.getTipoDomicilio());
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return idDomicilio;
+	}
+	
+	@Override
+	public int delete(DomicilioDTO domicilio) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		int idDomicilio = domicilio.getIdDomicilio();
+		try
+		{
+			statement = conexion.prepareStatement(delete);
+			statement.setInt(1, domicilio.getIdDomicilio());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
 			}
 		} 
 		catch (SQLException e) 

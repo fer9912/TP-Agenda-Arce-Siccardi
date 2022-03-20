@@ -145,6 +145,7 @@ public class Controlador implements ActionListener {
 				this.agenda.agregarPersona(nuevaPersona);
 				log.info(nuevaPersona.toString());
 				this.refrescarTabla();
+				
 				this.ventanaPersona.cerrar();
 			}
 		}
@@ -268,7 +269,9 @@ public class Controlador implements ActionListener {
 		if (this.vista.getVistaSeleccionada() == 1) {
 			
 			for (int fila : filasSeleccionadas) {
-				this.agenda.borrarPersona(this.personasEnTabla.get(fila));
+				PersonaDTO persona = this.personasEnTabla.get(fila);
+				this.agenda.borrarPersona(persona);
+				this.agenda.borrarDomicilio(persona.getDomicilioDTO());
 			}
 			this.refrescarTabla();
 		}
@@ -301,6 +304,14 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnEditar().setText("Editar Persona");
 
 		this.vista.getBtnBorrar().setText("Borrar Persona");
+		
+		this.vista.getBtnAgregar().setBounds(20, 312, 175, 23);
+
+		this.vista.getBtnEditar().setBounds(220, 312, 175, 23);
+
+		this.vista.getBtnBorrar().setBounds(420, 312, 175, 23);
+		
+		this.vista.getBtnReporte().setVisible(true);
 
 		this.vista.cargarTablaPersonas();
 
@@ -316,6 +327,12 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnEditar().setText("Editar Localidad");
 
 		this.vista.getBtnBorrar().setText("Borrar Localidad");
+		
+		this.vista.getBtnAgregar().setBounds(20, 312, 200, 23);
+
+		this.vista.getBtnEditar().setBounds(280, 312, 200, 23);
+
+		this.vista.getBtnBorrar().setBounds(540, 312, 200, 23);
 
 		this.vista.getBtnReporte().setVisible(false);
 

@@ -73,6 +73,10 @@ public class Agenda
 		return this.domicilio.insert(nuevoDomicilio);		
 	}
 	
+	public int borrarDomicilio(DomicilioDTO domicilio) {
+		return this.domicilio.delete(domicilio);
+	}
+	
 	public int actualizarDomicilio(DomicilioDTO Domicilio) {
 		return this.domicilio.update(Domicilio);
 	}
