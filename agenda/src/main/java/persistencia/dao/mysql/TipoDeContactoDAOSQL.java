@@ -17,7 +17,8 @@ public class TipoDeContactoDAOSQL implements TipoDeContactoDAO {
 	private static final String delete = "DELETE FROM tipo_contacto WHERE idTipo_contacto = ?";
 	private static final String readall = "SELECT * FROM tipo_contacto";
 	private static final String getId = "SELECT * FROM tipo_contacto WHERE idTipo_contacto = ?";
-
+    private static final String update = "UPDATE tipo_contacto t set tipo_contacto = ? where t.idTipo_contacto = ?";
+	
 	@Override
 	public boolean insert(TipoDeContactoDTO tipoDeContacto) {
 		PreparedStatement statement;
@@ -42,6 +43,32 @@ public class TipoDeContactoDAOSQL implements TipoDeContactoDAO {
 
 		return isInsertExitoso;
 	}
+	
+	@Override
+	public boolean update(TipoDeContactoDTO tipoDeContacto) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isUpdateExitoso = false;
+		try {
+			statement = conexion.prepareStatement(update);
+			statement.setString(1, tipoDeContacto.getTipoDeContacto());
+			statement.setInt(2, tipoDeContacto.getIdTipoDeContacto());
+			if (statement.executeUpdate() > 0) {
+				conexion.commit();
+				isUpdateExitoso = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		return isUpdateExitoso;
+	}
+
 
 	@Override
 	public boolean delete(TipoDeContactoDTO tipoDeContacto_a_eliminar) {

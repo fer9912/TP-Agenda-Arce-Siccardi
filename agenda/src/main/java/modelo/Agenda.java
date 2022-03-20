@@ -63,6 +63,10 @@ public class Agenda
 	{
 		this.localidad.delete(localidad_a_eliminar);
 	}
+	
+	public void actualizarLocalidad(LocalidadDTO localidad) {
+		this.localidad.update(localidad);
+	}
 
 
 	public int agregarDomicilio(DomicilioDTO nuevoDomicilio) {
@@ -86,6 +90,10 @@ public class Agenda
 	public void agregarTipoDeContacto(TipoDeContactoDTO nuevoTipo)
 	{
 		this.tipoDeContacto.insert(nuevoTipo);
+	}
+	
+	public void actualizarTipoDeContacto(TipoDeContactoDTO tipo_actualizar) {
+		this.tipoDeContacto.update(tipo_actualizar);
 	}
 
 	public void borrarTipoDeContacto(TipoDeContactoDTO tipoDeContacto_a_eliminar) 

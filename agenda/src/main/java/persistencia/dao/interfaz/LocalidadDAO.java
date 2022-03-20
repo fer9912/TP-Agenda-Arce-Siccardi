@@ -14,5 +14,7 @@ public interface LocalidadDAO {
 	public List<LocalidadDTO> readAll();
 
 	public LocalidadDTO get(int idTipoContacto);
+	
+	public boolean update(LocalidadDTO localidad_actualizar);
 
 }

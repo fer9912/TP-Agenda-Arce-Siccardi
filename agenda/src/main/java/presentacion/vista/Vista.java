@@ -35,13 +35,13 @@ public class Vista
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private JButton btnEditar;
-	JButton btnVerAgenda;
-	JButton btnVerTipoDeContacto;
-	JButton btnLocalidades;
+	private JButton btnVerAgenda;
+	private JButton btnVerTipoDeContacto;
+	private JButton btnLocalidades;
 	private List<PersonaDTO> personasEnTabla;
-	JScrollPane spPersonas;
-	private Agenda agenda;
-	private DefaultTableModel modelPersonas;
+	private JScrollPane spPersonas;
+	private int vistaSeleccionada;
+    private DefaultTableModel modelPersonas;
 	private  String[] nombreColumnasPersona = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad"};
 	private  String[] nombreColumnasTipoDeContacto = {"Tipo de Contacto"};
 	private  String[] nombreColumnasLocalidades = {"Localidad","Provincia","Pais"};
@@ -70,6 +70,8 @@ public class Vista
 		panel.add(spPersonas);
 		
 		cargarTablaPersonas();
+		
+		vistaSeleccionada = 1;
 		
 		btnAgregar = new JButton("Agregar Persona");
 		btnAgregar.addActionListener(new ActionListener() {
@@ -227,6 +229,14 @@ public class Vista
 		this.nombreColumnasLocalidades = nombreColumnasLocalidades;
 	}
 
+	public int getVistaSeleccionada() {
+		return vistaSeleccionada;
+	}
+
+
+	public void setVistaSeleccionada(int vistaSeleccionada) {
+		this.vistaSeleccionada = vistaSeleccionada;
+	}
 
 	public void llenarTabla(List<PersonaDTO> personasEnTabla) {
 		this.getModelPersonas().setRowCount(0); //Para vaciar la tabla

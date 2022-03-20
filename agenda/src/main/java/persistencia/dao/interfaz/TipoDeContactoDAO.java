@@ -13,5 +13,6 @@ public interface TipoDeContactoDAO {
 	public List<TipoDeContactoDTO> readAll();
 
 	public TipoDeContactoDTO get(int idTipoContacto);
-
+	
+	public boolean update(TipoDeContactoDTO contacto_actualizar);
 }
