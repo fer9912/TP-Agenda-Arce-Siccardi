@@ -12,7 +12,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import dto.DomicilioDTO;
+import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.TipoDeContactoDTO;
 import modelo.Agenda;
 
 import javax.swing.JButton;
@@ -37,6 +39,7 @@ public class Vista
 	JButton btnVerTipoDeContacto;
 	JButton btnLocalidades;
 	private List<PersonaDTO> personasEnTabla;
+	JScrollPane spPersonas;
 	private Agenda agenda;
 	private DefaultTableModel modelPersonas;
 	private  String[] nombreColumnasPersona = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad"};
@@ -62,38 +65,30 @@ public class Vista
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JScrollPane spPersonas = new JScrollPane();
+		spPersonas = new JScrollPane();
 		spPersonas.setBounds(10, 11, 783, 290);
 		panel.add(spPersonas);
 		
-		modelPersonas = new DefaultTableModel(null,nombreColumnasPersona);
-		tablaPersonas = new JTable(modelPersonas);
-
-		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+		cargarTablaPersonas();
 		
-		spPersonas.setViewportView(tablaPersonas);
-		
-		btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton("Agregar Persona");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAgregar.setBounds(192, 312, 89, 23);
+		btnAgregar.setBounds(20, 312, 175, 23);
 		panel.add(btnAgregar);
 		
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(291, 312, 89, 23);
+		btnEditar = new JButton("Editar Persona");
+		btnEditar.setBounds(220, 312, 175, 23);
 		panel.add(btnEditar);
 		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(390, 312, 89, 23);
+		btnBorrar = new JButton("Borrar Persona");
+		btnBorrar.setBounds(420, 312, 175, 23);
 		panel.add(btnBorrar);
 		
 		btnReporte = new JButton("Reporte");
-		btnReporte.setBounds(489, 312, 89, 23);
+		btnReporte.setBounds(620, 312, 175, 23);
 		panel.add(btnReporte);
 		
 		JPanel panel_1 = new JPanel();
@@ -103,17 +98,6 @@ public class Vista
 		btnVerAgenda = new JButton("Ver Agenda");
 		btnVerAgenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				modelPersonas = new DefaultTableModel(null,nombreColumnasPersona);
-				tablaPersonas = new JTable(modelPersonas);
-
-				tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
-				tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-				tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
-				tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
-				
-				spPersonas.setViewportView(tablaPersonas);
-				
 			}
 		});
 		btnVerAgenda.setBounds(823, 25, 75, 302);
@@ -123,13 +107,6 @@ public class Vista
 		btnVerTipoDeContacto = new JButton(verTipoContact);
 		btnVerTipoDeContacto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modelPersonas = new DefaultTableModel(null,nombreColumnasTipoDeContacto);
-				tablaPersonas = new JTable(modelPersonas);
-
-				tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
-				tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-				
-				spPersonas.setViewportView(tablaPersonas);
 			}
 		});
 		panel_1.add(btnVerTipoDeContacto);
@@ -137,17 +114,6 @@ public class Vista
 		btnLocalidades = new JButton("Ver Localidades");
 		btnLocalidades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				modelPersonas = new DefaultTableModel(null,nombreColumnasLocalidades);
-				tablaPersonas = new JTable(modelPersonas);
-
-				tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
-				tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-				tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(103);
-				tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
-				tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(103);
-				tablaPersonas.getColumnModel().getColumn(2).setResizable(false);
-				
-				spPersonas.setViewportView(tablaPersonas);
 			}
 		});
 		panel_1.add(btnLocalidades);
@@ -235,16 +201,37 @@ public class Vista
 		return tablaPersonas;
 	}
 
-	public String[] getNombreColumnas() 
+	public String[] getNombreColumnasPersona() 
 	{
 		return nombreColumnasPersona;
+	}
+	
+
+
+	public String[] getNombreColumnasTipoDeContacto() {
+		return nombreColumnasTipoDeContacto;
+	}
+
+
+	public void setNombreColumnasTipoDeContacto(String[] nombreColumnasTipoDeContacto) {
+		this.nombreColumnasTipoDeContacto = nombreColumnasTipoDeContacto;
+	}
+
+
+	public String[] getNombreColumnasLocalidades() {
+		return nombreColumnasLocalidades;
+	}
+
+
+	public void setNombreColumnasLocalidades(String[] nombreColumnasLocalidades) {
+		this.nombreColumnasLocalidades = nombreColumnasLocalidades;
 	}
 
 
 	public void llenarTabla(List<PersonaDTO> personasEnTabla) {
 		this.getModelPersonas().setRowCount(0); //Para vaciar la tabla
 		this.getModelPersonas().setColumnCount(0);
-		this.getModelPersonas().setColumnIdentifiers(this.getNombreColumnas());
+		this.getModelPersonas().setColumnIdentifiers(this.getNombreColumnasPersona());
 
 		for (PersonaDTO p : personasEnTabla)
 		{
@@ -265,17 +252,66 @@ public class Vista
 		
 	}
 	
-	private void setLocalidad(PersonaDTO p) {
-		p.setLocalidad(this.agenda.getLocalidad(p.getDomicilioDTO().getLocalidad()));
-			
+	public void llenarTablaLocalidades(List<LocalidadDTO> localidadesEnTabla) {
+		this.getModelPersonas().setRowCount(0); //Para vaciar la tabla
+		this.getModelPersonas().setColumnCount(0);
+		this.getModelPersonas().setColumnIdentifiers(this.getNombreColumnasLocalidades());
+		
+		for(LocalidadDTO l : localidadesEnTabla) {
+			String localidad = l.getNombreLocalidad();
+			String provincia = l.getProvincia();
+			String pais = l.getPais();
+			Object[] fila = {localidad,provincia,pais};
+			this.getModelPersonas().addRow(fila);
 		}
+		
+	}
+	
+	public void llenarTablaTiposDeContacto(List<TipoDeContactoDTO> tipoDeContactoEnTabla) {
+		this.getModelPersonas().setRowCount(0); //Para vaciar la tabla
+		this.getModelPersonas().setColumnCount(0);
+		this.getModelPersonas().setColumnIdentifiers(this.getNombreColumnasTipoDeContacto());
+		
+		for(TipoDeContactoDTO t : tipoDeContactoEnTabla ) {
+			String tipoDeContacto = t.getTipoDeContacto();
+			Object[] fila = {tipoDeContacto};
+			this.getModelPersonas().addRow(fila);
+		}
+	}
+	
+	public void cargarTablaPersonas(){
+		modelPersonas = new DefaultTableModel(null,nombreColumnasPersona);
+		tablaPersonas = new JTable(modelPersonas);
 
-		private void setTipoContacto(PersonaDTO p) {
-			p.setTipoContacto(this.agenda.getTipoContacto(p.getIdTipoContacto()).getTipoDeContacto());
-			
-		}
+		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+		
+		spPersonas.setViewportView(tablaPersonas);
+	}
+	
+	public void cargarTablaLocalidades() {
+		modelPersonas = new DefaultTableModel(null,nombreColumnasLocalidades);
+		tablaPersonas = new JTable(modelPersonas);
 
-		private void setDomicilio(PersonaDTO p) {
-			p.setDomicilioDTO(this.agenda.getDomicilio(p.getDomicilio()));
-		}
+		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(2).setResizable(false);
+		
+		spPersonas.setViewportView(tablaPersonas);
+	}
+	
+	public void cargarTablaTipodeContacto() {
+		modelPersonas = new DefaultTableModel(null,nombreColumnasTipoDeContacto);
+		tablaPersonas = new JTable(modelPersonas);
+
+		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
+		
+		spPersonas.setViewportView(tablaPersonas);
+	}
 }

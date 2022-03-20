@@ -21,37 +21,47 @@ import presentacion.vista.VentanaEditarPersona;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import dto.DomicilioDTO;
+import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.TipoDeContactoDTO;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Controlador implements ActionListener {
-	private Vista vista;
-	private List<PersonaDTO> personasEnTabla;
-	private VentanaPersona ventanaPersona;
-	private VentanaEditarPersona ventanaEditarPersona;
-	private PersonaDTO personaSeleccionada;
-	private Agenda agenda;
-	private Logger log = LogManager.getLogger(Conexion.class);
-
-	public Controlador(Vista vista, Agenda agenda) {
-		this.vista = vista;
-		this.agenda = agenda;
-		this.vista.getBtnAgregar().addActionListener(a -> ventanaAgregarPersona(a));
-		this.vista.getBtnBorrar().addActionListener(s -> borrarPersona(s));
-		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
-		this.vista.getBtnEditar().addActionListener(e -> ventanaEditarPersona(e));
-		this.ventanaPersona = VentanaPersona.getInstance();
-		this.ventanaPersona.getBtnAgregarPersona().addActionListener(p -> guardarPersona(p));
-		this.ventanaEditarPersona = VentanaEditarPersona.getInstance();
-		this.ventanaEditarPersona.getBtnGuardarPersona().addActionListener(g -> guardarCambiosPersona(g));
-	}
-
-	private void ventanaAgregarPersona(ActionEvent a) {
-		this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
-		this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
-		this.ventanaPersona.mostrarVentana();
-	}
+public class Controlador implements ActionListener
+{
+		private Vista vista;
+		private List<PersonaDTO> personasEnTabla;
+		private List<LocalidadDTO> localidadesEnTabla;
+		private List<TipoDeContactoDTO> tipoDeContactoEnTabla;
+		private VentanaPersona ventanaPersona; 
+		private VentanaEditarPersona ventanaEditarPersona;
+		private PersonaDTO personaSeleccionada;
+		private Agenda agenda;
+		private Logger log = LogManager.getLogger(Conexion.class);	
+		
+		public Controlador(Vista vista, Agenda agenda)
+		{
+			this.vista = vista;
+			this.agenda = agenda;
+			this.vista.getBtnAgregar().addActionListener(a->ventanaAgregarPersona(a));
+			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
+			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
+			this.vista.getBtnEditar().addActionListener(e->ventanaEditarPersona(e));
+			this.vista.getBtnVerAgenda().addActionListener(c->cargarTablaPersonas(c));
+			this.vista.getBtnLocalidades().addActionListener(c->cargarTablaLocalidades(c));
+			this.vista.getBtnVerTipoDeContacto().addActionListener(c->cargarTablaTipoDeContacto(c));
+			this.ventanaPersona = VentanaPersona.getInstance();
+			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
+			this.ventanaEditarPersona = VentanaEditarPersona.getInstance();
+			this.ventanaEditarPersona.getBtnGuardarPersona().addActionListener(g->guardarCambiosPersona(g));
+		}
+		
+		private void ventanaAgregarPersona(ActionEvent a) {
+			this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
+			this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
+			this.ventanaPersona.mostrarVentana();
+		}		
 
 	public void ventanaEditarPersona(ActionEvent e) {
 		if (this.vista.getTablaPersonas() != null && this.vista.getTablaPersonas().getSelectedRow() != -1) {
@@ -102,7 +112,7 @@ public class Controlador implements ActionListener {
 			this.ventanaEditarPersona.cerrar();
 		}
 	}
-
+		
 	private int guardarDomicilio() {
 		String calle = this.ventanaPersona.getCalle().getText();
 		String altura = ventanaPersona.getAltura().getText();
@@ -139,6 +149,71 @@ public class Controlador implements ActionListener {
 		}
 
 		this.refrescarTabla();
+	}
+
+		
+	public void cargarTablaPersonas(ActionEvent c) {
+		
+		   this.vista.getBtnAgregar().setText("Agregar Persona");
+		   
+		   this.vista.getBtnEditar().setText("Editar Persona");
+		   
+		   this.vista.getBtnBorrar().setText("Borrar Persona");
+			
+		   this.vista.cargarTablaPersonas();
+			
+			refrescarTabla();
+	}
+		
+	public void cargarTablaLocalidades(ActionEvent c) {
+		
+		   this.vista.getBtnAgregar().setText("Agregar Localidad");
+		   
+		   this.vista.getBtnEditar().setText("Editar Localidad");
+		   
+		   this.vista.getBtnBorrar().setText("Borrar Localidad");
+		   
+		   this.vista.getBtnReporte().setVisible(false);
+			
+		   this.vista.cargarTablaLocalidades();
+			
+			refrescarTablaLocalidades();
+	}
+		
+    public void cargarTablaTipoDeContacto(ActionEvent c) {
+    	
+    	   this.vista.getBtnAgregar().setText("Agregar Tipo de Contacto");
+		   
+		   this.vista.getBtnEditar().setText("Editar Tipo de Contacto");
+		   
+		   this.vista.getBtnBorrar().setText("Borrar Tipo de Contacto");
+		   
+          this.vista.getBtnAgregar().setBounds(20, 312, 200, 23);
+		   
+		   this.vista.getBtnEditar().setBounds(280, 312, 200, 23);
+		   
+		   this.vista.getBtnBorrar().setBounds(540, 312, 200, 23);
+		   
+		   this.vista.getBtnReporte().setVisible(false);
+			
+			this.vista.cargarTablaTipodeContacto();
+			
+			refrescarTablaTiposDeContacto();
+	}
+		
+		
+   private void refrescarTablaLocalidades(){
+			this.localidadesEnTabla = agenda.obtenerLocalidades();
+			
+			
+			this.vista.llenarTablaLocalidades(localidadesEnTabla);
+			
+	}
+		
+	private void refrescarTablaTiposDeContacto() {
+			this.tipoDeContactoEnTabla = agenda.obtenerTiposDeContacto();
+		
+			this.vista.llenarTablaTiposDeContacto(tipoDeContactoEnTabla);
 	}
 
 	public void inicializar() {
