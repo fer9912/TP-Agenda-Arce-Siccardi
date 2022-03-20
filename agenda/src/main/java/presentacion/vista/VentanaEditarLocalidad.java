@@ -2,6 +2,8 @@ package presentacion.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,7 +40,11 @@ public class VentanaEditarLocalidad extends JFrame
 	{
 		super();
 		
-		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				cerrar();
+			}
+		});
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 230, 287);
@@ -130,6 +136,7 @@ public class VentanaEditarLocalidad extends JFrame
 	{
 		this.localidad.setText(null);
 		this.provincia.setText(null);
+		this.pais.setText(null);
 		this.dispose();
 	}	
 	

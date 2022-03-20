@@ -76,8 +76,6 @@ public class Controlador implements ActionListener {
 	private void ventanaAgregar(ActionEvent a) {
 
 		if (this.vista.getVistaSeleccionada() == 1) {
-			this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
-			this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
 			this.ventanaPersona.mostrarVentana();
 		}
 
@@ -101,8 +99,7 @@ public class Controlador implements ActionListener {
 				
 				personaSeleccionada = this.personasEnTabla.get(filaSeleccionada);
 
-				this.ventanaEditarPersona.llenarInfoPersona(personaSeleccionada, agenda.obtenerTiposDeContacto(),
-						agenda.obtenerLocalidades());
+				this.ventanaEditarPersona.llenarInfoPersona(personaSeleccionada);
 
 				this.ventanaEditarPersona.mostrarVentana();
 			}
@@ -378,6 +375,10 @@ public class Controlador implements ActionListener {
 	}
 
 	public void inicializar() {
+		this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
+		this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
+		this.ventanaEditarPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
+		this.ventanaEditarPersona.llenarLocalidades(agenda.obtenerLocalidades());
 		this.refrescarTabla();
 		this.vista.show();
 	}

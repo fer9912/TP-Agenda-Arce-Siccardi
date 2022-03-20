@@ -16,6 +16,8 @@ import dto.TipoDeContactoDTO;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -40,6 +42,8 @@ public class VentanaEditarPersona extends JFrame
 	private JComboBox<String> localidad;
 	private DefaultComboBoxModel<String> modelTipos = new DefaultComboBoxModel<String>();
 	private DefaultComboBoxModel<String> modelLocalidades = new DefaultComboBoxModel<String>();
+	private List<TipoDeContactoDTO> tiposDeContactos;
+	private List<LocalidadDTO> localidades;
 
 	public static VentanaEditarPersona getInstance()
 	{
@@ -55,7 +59,11 @@ public class VentanaEditarPersona extends JFrame
 	private VentanaEditarPersona() 
 	{
 		super();
-		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				cerrar();
+			}
+		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 416, 414);
 		contentPane = new JPanel();
@@ -245,11 +253,17 @@ public class VentanaEditarPersona extends JFrame
 	{
 		this.nombre.setText(null);
 		this.telefono.setText(null);
+		this.email.setText(null);
+		this.fechaC.setText(null);
+		this.calle.setText(null);
+		this.altura.setText(null);
+		this.piso.setText(null);
+		this.tipoDomicilio.setText(null);
 		this.dispose();
 	}
 	
 	
-	public void llenarInfoPersona(PersonaDTO persona,List<TipoDeContactoDTO> tiposDeContacto,List<LocalidadDTO> localidades) {
+	public void llenarInfoPersona(PersonaDTO persona) {
 		this.nombre.setText(persona.getNombre()); 
 		this.email.setText(persona.getEmail());
 		this.telefono.setText(persona.getTelefono());
@@ -257,36 +271,23 @@ public class VentanaEditarPersona extends JFrame
 		this.calle.setText(persona.getDomicilioDTO().getCalle());
 		this.altura.setText(persona.getDomicilioDTO().getAltura());
 		this.piso.setText(persona.getDomicilioDTO().getPiso());
-		this.tipoDomicilio.setText(persona.getDomicilioDTO().getTipoDomicilio());
+		this.tipoDomicilio.setText(persona.getDomicilioDTO().getTipoDomicilio());			
+		this.getModelTipos().setSelectedItem(this.getModelTipos().getElementAt(persona.getIdTipoContacto()-1));
+		this.getModelLocalidades().setSelectedItem(this.getModelLocalidades().getElementAt(persona.getLocalidad().getIdLocalidad()-1));
 		
-		this.getModelTipos().addElement(persona.getIdTipoContacto() + " - " + persona.getTipoContacto());
-		
-		this.getModelLocalidades().addElement(persona.getLocalidad().getIdLocalidad() + " - " + persona.getLocalidad().getNombreLocalidad());
-		
-		llenarTiposDeContacto(tiposDeContacto, persona.getTipoContacto());
-		
-		llenarLocalidades(localidades, persona.getLocalidad().getNombreLocalidad());
 	}
 
-	public void llenarTiposDeContacto(List<TipoDeContactoDTO> tiposDeContacto,String tipoActual) {
+	public void llenarTiposDeContacto(List<TipoDeContactoDTO> tiposDeContacto) {
 		for (TipoDeContactoDTO t : tiposDeContacto)
-		{
-			if(t.getTipoDeContacto().equals(tipoActual)) {
-				continue;
-			}
-			
+		{			
 			this.getModelTipos().addElement(t.getIdTipoDeContacto() + " - " + t.getTipoDeContacto());
 		}
 		
 	}
 	
-	public void llenarLocalidades(List<LocalidadDTO> localidades,String localidadActual) {
+	public void llenarLocalidades(List<LocalidadDTO> localidades) {
 		for (LocalidadDTO l : localidades)
 		{
-			if(l.getNombreLocalidad().equals(localidadActual)) {
-				continue;
-			}
-			
 			this.getModelLocalidades().addElement(l.getIdLocalidad() + " - " + l.getNombreLocalidad());
 		}
 		
