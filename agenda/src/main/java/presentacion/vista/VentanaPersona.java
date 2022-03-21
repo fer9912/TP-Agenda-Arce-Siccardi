@@ -270,8 +270,6 @@ public class VentanaPersona extends JFrame {
 		this.altura.setText(null);
 		this.piso.setText(null);
 		this.tipoDomicilio.setText(null);
-		this.setLocalidad(null);
-		this.setTipoDeContactos(null);
 		this.dispose();
 	}
 
