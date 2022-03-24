@@ -98,8 +98,12 @@ public class Controlador implements ActionListener {
 			if (this.vista.getVistaSeleccionada() == 1) {
 				
 				personaSeleccionada = this.personasEnTabla.get(filaSeleccionada);
-
-				this.ventanaEditarPersona.llenarInfoPersona(personaSeleccionada);
+				
+				TipoDeContactoDTO tipoDTO = this.agenda.getTipoContacto(personaSeleccionada.getIdTipoContacto());
+				
+				LocalidadDTO localidadDTO = this.agenda.getLocalidad(personaSeleccionada.getLocalidad().getIdLocalidad());
+				
+				this.ventanaEditarPersona.llenarInfoPersona(personaSeleccionada,tipoDeContactoEnTabla,localidadesEnTabla,tipoDTO,localidadDTO);
 
 				this.ventanaEditarPersona.mostrarVentana();
 			}
@@ -138,8 +142,8 @@ public class Controlador implements ActionListener {
 				int domicilio = this.guardarDomicilio();
 				int tipo = Integer.parseInt(
 						this.ventanaPersona.getTipoDeContactos().getSelectedItem().toString().substring(0, 1));
-				String musica = "";
-				String medioDeTransporte = "";
+				String musica = this.ventanaPersona.getMusica().getText();
+				String medioDeTransporte = this.ventanaPersona.getMedioDeTransporte().getText();
 				PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, email, fecha, domicilio, tipo, musica, medioDeTransporte);
 				this.agenda.agregarPersona(nuevaPersona);
 				log.info(nuevaPersona.toString());
@@ -190,11 +194,11 @@ public class Controlador implements ActionListener {
 				String tel = ventanaEditarPersona.getTxtTelefono().getText();
 				String email = this.ventanaEditarPersona.getEmail().getText();
 				String fecha = ventanaEditarPersona.getFechaC().getText();
-				int domicilio = this.guardarCambiosDomicilio(1);
+				int domicilio = this.guardarCambiosDomicilio(personaSeleccionada.getDomicilio());
 				int tipo = Integer.parseInt(
 						this.ventanaEditarPersona.getTipoDeContactos().getSelectedItem().toString().substring(0, 1));
-				String musica = "";
-				String medioDeTransporte = "";
+				String musica = this.ventanaEditarPersona.getMusica().getText();
+				String medioDeTransporte = this.ventanaEditarPersona.getMedioDeTransporte().getText();
 				PersonaDTO personaActualizada = new PersonaDTO(personaSeleccionada.getIdPersona(), nombre, tel, email,
 						fecha, domicilio, tipo, musica, medioDeTransporte);
 				this.agenda.actualizarPersona(personaActualizada);
@@ -383,6 +387,8 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
 		this.ventanaEditarPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
 		this.ventanaEditarPersona.llenarLocalidades(agenda.obtenerLocalidades());
+		this.tipoDeContactoEnTabla = agenda.obtenerTiposDeContacto();
+		this.localidadesEnTabla = agenda.obtenerLocalidades();
 		this.refrescarTabla();
 		this.vista.show();
 	}

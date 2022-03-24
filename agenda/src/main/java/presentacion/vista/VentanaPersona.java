@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.text.JTextComponent;
 
 public class VentanaPersona extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -51,6 +52,8 @@ public class VentanaPersona extends JFrame {
 	private JComboBox<String> localidad;
 	private DefaultComboBoxModel<String> modelTipos = new DefaultComboBoxModel<String>();
 	private DefaultComboBoxModel<String> modelLocalidades = new DefaultComboBoxModel<String>();
+	private JTextField musica;
+	private JTextField medioDeTransporte;
 
 	public static VentanaPersona getInstance() {
 		if (INSTANCE == null) {
@@ -70,14 +73,14 @@ public class VentanaPersona extends JFrame {
 		});
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 416, 414);
+		setBounds(100, 100, 416, 483);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 386, 353);
+		panel.setBounds(10, 11, 386, 422);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -131,68 +134,92 @@ public class VentanaPersona extends JFrame {
 
 		calle = new JTextField();
 		calle.setColumns(10);
-		calle.setBounds(10, 161, 164, 20);
+		calle.setBounds(10, 235, 164, 20);
 		panel.add(calle);
 
 		lblCalle = new JLabel("Calle");
-		lblCalle.setBounds(10, 142, 113, 14);
+		lblCalle.setBounds(10, 210, 113, 14);
 		panel.add(lblCalle);
 
 		lblDomicilio = new JLabel("Domicilio:");
 		lblDomicilio.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblDomicilio.setBounds(10, 114, 113, 14);
+		lblDomicilio.setBounds(10, 185, 113, 14);
 		panel.add(lblDomicilio);
 
 		DefaultComboBoxModel<String> modelLocalidad = this.getModelLocalidades();
 		localidad = new JComboBox();
 		localidad.setModel(modelLocalidad);
-		localidad.setBounds(209, 209, 159, 22);
+		localidad.setBounds(209, 291, 159, 22);
 		panel.add(localidad);
 
 		altura = new JTextField();
 		altura.setColumns(10);
-		altura.setBounds(209, 161, 72, 20);
+		altura.setBounds(209, 235, 72, 20);
 		panel.add(altura);
 
 		piso = new JTextField();
 		piso.setColumns(10);
-		piso.setBounds(296, 161, 72, 20);
+		piso.setBounds(291, 235, 72, 20);
 		panel.add(piso);
 
 		JLabel lblPiso = new JLabel("Piso");
-		lblPiso.setBounds(296, 142, 72, 14);
+		lblPiso.setBounds(296, 214, 72, 14);
 		panel.add(lblPiso);
 
 		JLabel lblAltura = new JLabel("Altura");
-		lblAltura.setBounds(209, 142, 77, 14);
+		lblAltura.setBounds(209, 214, 77, 14);
 		panel.add(lblAltura);
 
 		JLabel lblLocalidad = new JLabel("Localidad");
-		lblLocalidad.setBounds(209, 192, 164, 14);
+		lblLocalidad.setBounds(204, 266, 164, 14);
 		panel.add(lblLocalidad);
 
 		JLabel lblTipocasaDpto = new JLabel("Tipo (Casa, Dpto, etc...)");
-		lblTipocasaDpto.setBounds(10, 192, 164, 14);
+		lblTipocasaDpto.setBounds(10, 267, 164, 14);
 		panel.add(lblTipocasaDpto);
 
 		tipoDomicilio = new JTextField();
 		tipoDomicilio.setColumns(10);
-		tipoDomicilio.setBounds(10, 210, 164, 20);
+		tipoDomicilio.setBounds(10, 292, 164, 20);
 		panel.add(tipoDomicilio);
 
 		btnAgregarPersona = new JButton("Agregar");
-		btnAgregarPersona.setBounds(147, 306, 89, 23);
+		btnAgregarPersona.setBounds(141, 399, 89, 23);
 		panel.add(btnAgregarPersona);
 
 		JLabel lblTipoDeContacto = new JLabel("Tipo de contacto:");
 		lblTipoDeContacto.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTipoDeContacto.setBounds(10, 262, 113, 14);
+		lblTipoDeContacto.setBounds(10, 347, 113, 14);
 		panel.add(lblTipoDeContacto);
 
 		DefaultComboBoxModel<String> model = this.getModelTipos();
 		tipoDeContactos = new JComboBox<String>(model);
-		tipoDeContactos.setBounds(160, 259, 208, 22);
+		tipoDeContactos.setBounds(160, 344, 208, 22);
 		panel.add(tipoDeContactos);
+		
+		JLabel lblMusicaPreferida = new JLabel("Musica preferida");
+		lblMusicaPreferida.setBounds(10, 114, 113, 14);
+		panel.add(lblMusicaPreferida);
+		
+		JLabel lblMedioDeTransporte = new JLabel("Medio de transporte preferido");
+		lblMedioDeTransporte.setBounds(204, 114, 164, 14);
+		panel.add(lblMedioDeTransporte);
+		
+		musica = new JTextField();
+		TextPrompt placeholderMusica = new TextPrompt("Rock", musica);
+		placeholderMusica.changeAlpha(0.75f);
+		placeholderMusica.changeStyle(Font.ITALIC);
+		musica.setBounds(10, 139, 164, 20);
+		panel.add(musica);
+		musica.setColumns(10);
+		
+		medioDeTransporte = new JTextField();
+		TextPrompt placeholderTransporte = new TextPrompt("Tren", medioDeTransporte);
+		placeholderTransporte.changeAlpha(0.75f);
+		placeholderTransporte.changeStyle(Font.ITALIC);
+		medioDeTransporte.setBounds(204, 139, 164, 20);
+		panel.add(medioDeTransporte);
+		medioDeTransporte.setColumns(10);
 
 		this.setVisible(false);
 	}
@@ -319,4 +346,21 @@ public class VentanaPersona extends JFrame {
 		this.tipoDeContactos = tipoDeContactos;
 	}
 
+	public JTextField getMusica() {
+		return musica;
+	}
+
+	public void setMusica(JTextField musica) {
+		this.musica = musica;
+	}
+
+	public JTextField getMedioDeTransporte() {
+		return medioDeTransporte;
+	}
+
+	public void setMedioDeTransporte(JTextField medioDeTransporte) {
+		this.medioDeTransporte = medioDeTransporte;
+	}
+	
+	
 }
