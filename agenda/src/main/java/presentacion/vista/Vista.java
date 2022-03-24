@@ -42,7 +42,7 @@ public class Vista
 	private JScrollPane spPersonas;
 	private int vistaSeleccionada;
     private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnasPersona = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad"};
+	private  String[] nombreColumnasPersona = {"Nombre y apellido","Telefono","Email","Fecha de Nacimiento","Calle","Altura","Piso","Tipo de Domicilio","Tipo de Contacto","Localidad","Musica Preferida","Medio de Trasnporte preferido"};
 	private  String[] nombreColumnasTipoDeContacto = {"Tipo de Contacto"};
 	private  String[] nombreColumnasLocalidades = {"Localidad","Provincia","Pais"};
 
@@ -256,7 +256,9 @@ public class Vista
 			String tipoD = d.getTipoDomicilio();
 			String tipoContacto = p.getTipoContacto();
 			String localidad = p.getLocalidad().getNombreLocalidad();
-			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD, tipoContacto, localidad};
+			String musica = p.getMusica();
+			String medioDeTransporte = p.getMedioDeTransporte();
+			Object[] fila = {nombre, tel, email, fecha, calle, altura, piso, tipoD, tipoContacto, localidad, musica, medioDeTransporte};
 			this.getModelPersonas().addRow(fila);
 		}
 		
