@@ -9,6 +9,8 @@ CREATE TABLE `personas`
    `Email` VARCHAR(25) NULL,
    `Fecha_Cumpleaños` DATE NULL,
    `Domicilio` int NULL,
+   `Musica_Preferida` VARCHAR(25) NULL,
+   `Medio_de_transporte_Preferido` VARCHAR(25) NULL,
   PRIMARY KEY (`idPersona`)
 );
 

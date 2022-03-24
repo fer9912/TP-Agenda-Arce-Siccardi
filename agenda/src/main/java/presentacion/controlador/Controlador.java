@@ -138,7 +138,9 @@ public class Controlador implements ActionListener {
 				int domicilio = this.guardarDomicilio();
 				int tipo = Integer.parseInt(
 						this.ventanaPersona.getTipoDeContactos().getSelectedItem().toString().substring(0, 1));
-				PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, email, fecha, domicilio, tipo);
+				String musica = "";
+				String medioDeTransporte = "";
+				PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, email, fecha, domicilio, tipo, musica, medioDeTransporte);
 				this.agenda.agregarPersona(nuevaPersona);
 				log.info(nuevaPersona.toString());
 				this.refrescarTabla();
@@ -191,8 +193,10 @@ public class Controlador implements ActionListener {
 				int domicilio = this.guardarCambiosDomicilio(1);
 				int tipo = Integer.parseInt(
 						this.ventanaEditarPersona.getTipoDeContactos().getSelectedItem().toString().substring(0, 1));
+				String musica = "";
+				String medioDeTransporte = "";
 				PersonaDTO personaActualizada = new PersonaDTO(personaSeleccionada.getIdPersona(), nombre, tel, email,
-						fecha, domicilio, tipo);
+						fecha, domicilio, tipo, musica, medioDeTransporte);
 				this.agenda.actualizarPersona(personaActualizada);
 				log.info(personaActualizada.toString());
 				this.refrescarTabla();

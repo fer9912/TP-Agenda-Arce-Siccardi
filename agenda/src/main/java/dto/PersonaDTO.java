@@ -12,8 +12,10 @@ public class PersonaDTO
 	private int idTipoContacto;
 	private String tipoContacto;
 	private LocalidadDTO localidad;
+	private String musica;
+	private String medioDeTransporte;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String fecha, int domicilio, int idTipoContacto)
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String fecha, int domicilio, int idTipoContacto, String musica, String medioDeTransporte)
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
@@ -22,6 +24,8 @@ public class PersonaDTO
 		this.fecha = fecha;
 		this.domicilio = domicilio;
 		this.idTipoContacto = idTipoContacto;
+		this.musica = musica;
+		this.medioDeTransporte = medioDeTransporte;
 	}
 	
 	public int getIdPersona() 
@@ -109,6 +113,20 @@ public class PersonaDTO
 	public void setLocalidad(LocalidadDTO localidad) {
 		this.localidad = localidad;
 	}
-	
-	
+
+	public String getMusica() {
+		return musica;
+	}
+
+	public void setMusica(String musica) {
+		this.musica = musica;
+	}
+
+	public String getMedioDeTransporte() {
+		return medioDeTransporte;
+	}
+
+	public void setMedioDeTransporte(String medioDeTransporte) {
+		this.medioDeTransporte = medioDeTransporte;
+	}	
 }

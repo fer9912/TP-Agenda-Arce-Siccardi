@@ -13,10 +13,10 @@ import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fecha_cumpleaños, domicilio, tipo_contacto) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fecha_cumpleaños, domicilio, tipo_contacto, musica_preferida, medio_de_transporte_preferido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
-	private static final String update = "UPDATE personas p set nombre = ? , telefono = ? , email = ? , fecha_cumpleaños = ? , domicilio = ? , tipo_contacto = ? where p.idPersona = ?";
+	private static final String update = "UPDATE personas p set nombre = ? , telefono = ? , email = ? , fecha_cumpleaños = ? , domicilio = ? , tipo_contacto = ?, musica_preferida = ?, medio_de_transporte_preferido = ? where p.idPersona = ?";
 		
 	public boolean insert(PersonaDTO persona)
 	{
@@ -33,6 +33,8 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(5, persona.getFecha());
 			statement.setInt(6, persona.getDomicilio());
 			statement.setInt(7, persona.getIdTipoContacto());
+			statement.setString(8, persona.getMusica());
+			statement.setString(9, persona.getMedioDeTransporte());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -66,7 +68,9 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(4, persona.getFecha());
 			statement.setInt(5, persona.getDomicilio());
 			statement.setInt(6, persona.getIdTipoContacto());
-			statement.setInt(7, persona.getIdPersona());
+			statement.setString(7, persona.getMusica());
+			statement.setString(8, persona.getMedioDeTransporte());
+			statement.setInt(9, persona.getIdPersona());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -138,6 +142,8 @@ public class PersonaDAOSQL implements PersonaDAO
 		String fecha = resultSet.getString("Fecha_Cumpleaños");
 		int idDomicilio = resultSet.getInt("Domicilio");
 		int idTipoDeContacto = resultSet.getInt("Tipo_Contacto");
-		return new PersonaDTO(id, nombre, tel, email, fecha, idDomicilio, idTipoDeContacto);
+		String musica = resultSet.getString("Musica_Preferida");
+		String medioDeTransporte = resultSet.getString("Medio_de_transporte_Preferido");
+		return new PersonaDTO(id, nombre, tel, email, fecha, idDomicilio, idTipoDeContacto, musica, medioDeTransporte);
 	}
 }
