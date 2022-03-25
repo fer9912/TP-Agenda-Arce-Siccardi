@@ -16,7 +16,8 @@ import javax.swing.border.Border;
 import modelo.Agenda;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.DAOAbstractFactory;
-import presentacion.reportes.ReporteAgenda;
+import presentacion.reportes.ReporteMedioDeTransporte;
+import presentacion.reportes.ReporteMusicaPreferida;
 import presentacion.vista.VentanaEditarLocalidad;
 import presentacion.vista.VentanaEditarPersona;
 import presentacion.vista.VentanaEditarTipoDeContacto;
@@ -54,7 +55,8 @@ public class Controlador implements ActionListener {
 		this.agenda = agenda;
 		this.vista.getBtnAgregar().addActionListener(a -> ventanaAgregar(a));
 		this.vista.getBtnBorrar().addActionListener(s -> borrar(s));
-		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
+		this.vista.getBtnReporteMusica().addActionListener(r -> mostrarReporteMusicaPreferida(r));
+		this.vista.getBtnReporteMedioTransporte().addActionListener(r -> mostrarReporteMedioDeTransporte(r));
 		this.vista.getBtnEditar().addActionListener(e -> ventanaEditar(e));
 		this.vista.getBtnVerAgenda().addActionListener(c -> cargarTablaPersonas(c));
 		this.vista.getBtnLocalidades().addActionListener(c -> cargarTablaLocalidades(c));
@@ -263,8 +265,12 @@ public class Controlador implements ActionListener {
 
 	}
 
-	private void mostrarReporte(ActionEvent r) {
-		ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
+	private void mostrarReporteMedioDeTransporte(ActionEvent r) {
+		ReporteMedioDeTransporte reporte = new ReporteMedioDeTransporte(agenda.obtenerPersonas());
+		reporte.mostrar();
+	}
+	private void mostrarReporteMusicaPreferida(ActionEvent r) {
+		ReporteMusicaPreferida reporte = new ReporteMusicaPreferida(agenda.obtenerPersonas());
 		reporte.mostrar();
 	}
 
@@ -316,7 +322,7 @@ public class Controlador implements ActionListener {
 
 		this.vista.getBtnBorrar().setBounds(420, 312, 175, 23);
 		
-		this.vista.getBtnReporte().setVisible(true);
+		this.vista.getBtnReporteMusica().setVisible(true);
 
 		this.vista.cargarTablaPersonas();
 
@@ -339,7 +345,7 @@ public class Controlador implements ActionListener {
 
 		this.vista.getBtnBorrar().setBounds(540, 312, 200, 23);
 
-		this.vista.getBtnReporte().setVisible(false);
+		this.vista.getBtnReporteMusica().setVisible(false);
 
 		this.vista.cargarTablaLocalidades();
 
@@ -362,7 +368,7 @@ public class Controlador implements ActionListener {
 
 		this.vista.getBtnBorrar().setBounds(540, 312, 200, 23);
 
-		this.vista.getBtnReporte().setVisible(false);
+		this.vista.getBtnReporteMusica().setVisible(false);
 
 		this.vista.cargarTablaTipodeContacto();
 

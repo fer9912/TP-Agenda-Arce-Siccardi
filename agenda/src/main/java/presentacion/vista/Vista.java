@@ -33,7 +33,8 @@ public class Vista
 	private JTable tablaPersonas;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	private JButton btnReporte;
+	private JButton btnReporteMusica;
+	private JButton btnReporteMedioTransporte;
 	private JButton btnEditar;
 	private JButton btnVerAgenda;
 	private JButton btnVerTipoDeContacto;
@@ -56,45 +57,25 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1024, 426);
+		frame.setBounds(100, 100, 1104, 394);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 0, 803, 351);
+		panel.setBounds(10, 0, 893, 307);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 783, 290);
+		spPersonas.setBounds(10, 11, 873, 290);
 		panel.add(spPersonas);
 		
 		cargarTablaPersonas();
 		
 		vistaSeleccionada = 1;
 		
-		btnAgregar = new JButton("Agregar Persona");
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAgregar.setBounds(20, 312, 175, 23);
-		panel.add(btnAgregar);
-		
-		btnEditar = new JButton("Editar Persona");
-		btnEditar.setBounds(220, 312, 175, 23);
-		panel.add(btnEditar);
-		
-		btnBorrar = new JButton("Borrar Persona");
-		btnBorrar.setBounds(420, 312, 175, 23);
-		panel.add(btnBorrar);
-		
-		btnReporte = new JButton("Reporte");
-		btnReporte.setBounds(620, 312, 175, 23);
-		panel.add(btnReporte);
-		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(823, 11, 175, 302);
+		panel_1.setBounds(903, 11, 175, 152);
 		frame.getContentPane().add(panel_1);
 		
 		btnVerAgenda = new JButton("Ver Agenda");
@@ -119,6 +100,29 @@ public class Vista
 			}
 		});
 		panel_1.add(btnLocalidades);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(20, 308, 774, 33);
+		frame.getContentPane().add(panel_2);
+		
+		btnAgregar = new JButton("Agregar Persona");
+		panel_2.add(btnAgregar);
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		btnEditar = new JButton("Editar Persona");
+		panel_2.add(btnEditar);
+		
+		btnBorrar = new JButton("Borrar Persona");
+		panel_2.add(btnBorrar);
+		
+		btnReporteMedioTransporte = new JButton("Reporte Medio de Transporte");
+		panel_2.add(btnReporteMedioTransporte);
+		
+		btnReporteMusica = new JButton("Reporte Musica");
+		panel_2.add(btnReporteMusica);
 		
 	}
 	
@@ -182,9 +186,14 @@ public class Vista
 		return btnBorrar;
 	}
 	
-	public JButton getBtnReporte() 
+	public JButton getBtnReporteMusica() 
 	{
-		return btnReporte;
+		return btnReporteMusica;
+	}
+	
+	public JButton getBtnReporteMedioTransporte() 
+	{
+		return btnReporteMedioTransporte;
 	}
 	
 	public JButton getBtnEditar() 

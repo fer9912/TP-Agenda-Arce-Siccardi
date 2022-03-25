@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteMusicaPreferida" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13d063b0-9907-453f-9524-72e8539386c0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="Dataset1" uuid="0c2c63c8-5ff4-4a56-9682-9aaa0885de12">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<subDataset name="Tabla" uuid="e4685470-461e-4b10-bc67-68720f9f45a8">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<subDataset name="PersonasList" uuid="d9ec27e1-f413-43fe-911c-039aeab083d5">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="musica" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="Fecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="musica" class="java.lang.String"/>
+	<sortField name="musica"/>
+	<group name="Musica Preferida">
+		<groupExpression><![CDATA[$F{musica}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="560" height="20" backcolor="#7EB1BF" uuid="a0767054-3cb1-477a-8593-8e64a4855ec2"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Transparent" x="38" y="0" width="478" height="20" backcolor="#6A9DA6" uuid="4a957e16-a689-47a8-8276-c7672f3d6baf">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{musica}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="525" y="0" width="20" height="20" uuid="d49ae5ce-c92a-433d-a9e3-e0d671739443"/>
+					<textFieldExpression><![CDATA[$V{Musica Preferida_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="495" y="0" width="30" height="20" uuid="75f8ace6-ad95-4bb9-afb7-e8053bf08267">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="300" height="30" uuid="a33dfa93-b300-4023-92a0-3199a3355110"/>
+				<textElement textAlignment="Left">
+					<font size="21"/>
+				</textElement>
+				<text><![CDATA[Reporte de Musica Preferida]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="4" width="74" height="16" uuid="6652547f-8b48-406c-960f-0d38d44b8208"/>
+				<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="400" y="4" width="100" height="20" uuid="e9b833e8-83ff-4c81-95bd-07d95ed2f66a"/>
+				<text><![CDATA[Reporte generado el:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="20" uuid="6aceb877-2e55-425c-81b4-310e8c0d60e8"/>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte que muestra la musica preferida de los contactos de la agenda.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="190" height="20" uuid="b1ec1a3e-4b19-4a88-91e9-f80ca18c60f8"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre y Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="10" width="190" height="20" uuid="7a1c5884-5616-427f-8380-35b6d1917a6c"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Musica Preferida]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="40" y="0" width="190" height="20" uuid="6d3737e9-5d37-4fba-84ce-7eee187de0a1"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="222" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="135" y="0" width="290" height="200" uuid="81772ae3-5e46-4191-8d30-4b36a1170a10"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report" incrementType="Group" incrementGroup="Musica Preferida"/>
+					<keyExpression><![CDATA[$F{musica}]]></keyExpression>
+					<valueExpression><![CDATA[$V{Musica Preferida_COUNT}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
