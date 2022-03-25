@@ -30,15 +30,18 @@ public class ReporteMusicaPreferida
 	private JasperPrint	reporteLleno;
 	private Logger log = LogManager.getLogger(Conexion.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteMusicaPreferida(List<PersonaDTO> personas)
+    public ReporteMusicaPreferida(List<PersonaDTO> personas, String orden)
     {
-
-    	 Collections.sort(personas, new Comparator<PersonaDTO>() {
-    	      @Override
-    	      public int compare(final PersonaDTO object1, final PersonaDTO object2) {
-    	          return object1.getMusica().compareTo(object2.getMusica());
-    	      }
-    	  });
+    	Collections.sort(personas, new Comparator<PersonaDTO>() {
+     	      @Override
+     	      public int compare(final PersonaDTO object1, final PersonaDTO object2) {
+     	    		  return object1.getMusica().compareTo(object2.getMusica());
+     	      }
+     	  	});
+     	 
+      	if(orden == "desc") {
+      		 personas.sort(Comparator.comparing(PersonaDTO::getMusica, Comparator.reverseOrder()));
+      	}     	
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();	
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));	

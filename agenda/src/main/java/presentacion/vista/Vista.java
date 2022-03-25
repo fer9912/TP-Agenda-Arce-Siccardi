@@ -17,6 +17,7 @@ import dto.PersonaDTO;
 import dto.TipoDeContactoDTO;
 import modelo.Agenda;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
@@ -26,18 +27,24 @@ import javax.swing.JToolBar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
+import javax.swing.JLabel;
 
 public class Vista
 {
 	private JFrame frame;
 	private JTable tablaPersonas;
 	private JButton btnAgregar;
+	private JLabel lblOrden;
 	private JButton btnBorrar;
 	private JButton btnReporteMusica;
 	private JButton btnReporteMedioTransporte;
 	private JButton btnEditar;
 	private JButton btnVerAgenda;
 	private JButton btnVerTipoDeContacto;
+	private JRadioButton rdbtnOrden;
+	private JRadioButton rdbtnOrden2;
+	private ButtonGroup grupoBotones;
 	private JButton btnLocalidades;
 	private List<PersonaDTO> personasEnTabla;
 	private JScrollPane spPersonas;
@@ -62,12 +69,12 @@ public class Vista
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 0, 893, 307);
+		panel.setBounds(10, 0, 859, 307);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 873, 290);
+		spPersonas.setBounds(10, 11, 842, 290);
 		panel.add(spPersonas);
 		
 		cargarTablaPersonas();
@@ -75,7 +82,7 @@ public class Vista
 		vistaSeleccionada = 1;
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(903, 11, 175, 152);
+		panel_1.setBounds(897, 11, 175, 152);
 		frame.getContentPane().add(panel_1);
 		
 		btnVerAgenda = new JButton("Ver Agenda");
@@ -102,7 +109,7 @@ public class Vista
 		panel_1.add(btnLocalidades);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(20, 308, 774, 33);
+		panel_2.setBounds(20, 308, 851, 33);
 		frame.getContentPane().add(panel_2);
 		
 		btnAgregar = new JButton("Agregar Persona");
@@ -118,11 +125,31 @@ public class Vista
 		btnBorrar = new JButton("Borrar Persona");
 		panel_2.add(btnBorrar);
 		
-		btnReporteMedioTransporte = new JButton("Reporte Medio de Transporte");
-		panel_2.add(btnReporteMedioTransporte);
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setBounds(867, 247, 221, 97);
+		frame.getContentPane().add(panel_1_1);
+		
+		grupoBotones = new ButtonGroup();
+		
+		lblOrden = new JLabel("Orden:");
+		panel_1_1.add(lblOrden);
+		
+		rdbtnOrden = new JRadioButton("A-z");
+		panel_1_1.add(rdbtnOrden);
+		
+		rdbtnOrden2 = new JRadioButton("Z-a");
+		panel_1_1.add(rdbtnOrden2);
+		
+		grupoBotones.add(rdbtnOrden);
+		grupoBotones.add(rdbtnOrden2);
 		
 		btnReporteMusica = new JButton("Reporte Musica");
-		panel_2.add(btnReporteMusica);
+		panel_1_1.add(btnReporteMusica);
+		
+		btnReporteMedioTransporte = new JButton("Reporte Medio de Transporte");
+		panel_1_1.add(btnReporteMedioTransporte);
+		
+		grupoBotones = new ButtonGroup();
 		
 	}
 	
@@ -243,9 +270,41 @@ public class Vista
 	}
 
 
+	public JRadioButton getRdbtnOrden() {
+		return rdbtnOrden;
+	}
+
+
+	public void setRdbtnOrden(JRadioButton rdbtnOrden) {
+		this.rdbtnOrden = rdbtnOrden;
+	}
+
+
+	public JRadioButton getRdbtnOrden2() {
+		return rdbtnOrden2;
+	}
+
+
+	public void setRdbtnOrden2(JRadioButton rdbtnOrden2) {
+		this.rdbtnOrden2 = rdbtnOrden2;
+	}
+
+
 	public void setVistaSeleccionada(int vistaSeleccionada) {
 		this.vistaSeleccionada = vistaSeleccionada;
 	}
+	
+	
+
+	public JLabel getLblOrden() {
+		return lblOrden;
+	}
+
+
+	public void setLblOrden(JLabel lblOrden) {
+		this.lblOrden = lblOrden;
+	}
+
 
 	public void llenarTabla(List<PersonaDTO> personasEnTabla) {
 		this.getModelPersonas().setRowCount(0); //Para vaciar la tabla

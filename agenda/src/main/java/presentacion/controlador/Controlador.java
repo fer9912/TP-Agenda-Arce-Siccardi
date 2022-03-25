@@ -266,12 +266,25 @@ public class Controlador implements ActionListener {
 	}
 
 	private void mostrarReporteMedioDeTransporte(ActionEvent r) {
-		ReporteMedioDeTransporte reporte = new ReporteMedioDeTransporte(agenda.obtenerPersonas());
-		reporte.mostrar();
+		if(this.vista.getRdbtnOrden().isSelected()) {
+			ReporteMedioDeTransporte reporte = new ReporteMedioDeTransporte(agenda.obtenerPersonas(), "asc");
+			reporte.mostrar();
+		}
+		if(this.vista.getRdbtnOrden2().isSelected()) {
+			ReporteMedioDeTransporte reporte = new ReporteMedioDeTransporte(agenda.obtenerPersonas(), "desc");
+			reporte.mostrar();
+		}		
 	}
+	
 	private void mostrarReporteMusicaPreferida(ActionEvent r) {
-		ReporteMusicaPreferida reporte = new ReporteMusicaPreferida(agenda.obtenerPersonas());
-		reporte.mostrar();
+		if(this.vista.getRdbtnOrden().isSelected()) {
+			ReporteMusicaPreferida reporte = new ReporteMusicaPreferida(agenda.obtenerPersonas(), "asc");
+			reporte.mostrar();
+		}
+		if(this.vista.getRdbtnOrden2().isSelected()) {
+			ReporteMusicaPreferida reporte = new ReporteMusicaPreferida(agenda.obtenerPersonas(), "desc");
+			reporte.mostrar();
+		}
 	}
 
 	public void borrar(ActionEvent s) {
@@ -322,7 +335,7 @@ public class Controlador implements ActionListener {
 
 		this.vista.getBtnBorrar().setBounds(420, 312, 175, 23);
 		
-		this.vista.getBtnReporteMusica().setVisible(true);
+		showReportPanel();
 
 		this.vista.cargarTablaPersonas();
 
@@ -345,7 +358,7 @@ public class Controlador implements ActionListener {
 
 		this.vista.getBtnBorrar().setBounds(540, 312, 200, 23);
 
-		this.vista.getBtnReporteMusica().setVisible(false);
+		cleanReportPanel();
 
 		this.vista.cargarTablaLocalidades();
 
@@ -368,11 +381,26 @@ public class Controlador implements ActionListener {
 
 		this.vista.getBtnBorrar().setBounds(540, 312, 200, 23);
 
-		this.vista.getBtnReporteMusica().setVisible(false);
-
+		cleanReportPanel();
 		this.vista.cargarTablaTipodeContacto();
 
 		refrescarTablaTiposDeContacto();
+	}
+
+	private void cleanReportPanel() {
+		this.vista.getBtnReporteMusica().setVisible(false);
+		this.vista.getBtnReporteMedioTransporte().setVisible(false);
+		this.vista.getRdbtnOrden().setVisible(false);
+		this.vista.getRdbtnOrden2().setVisible(false);
+		this.vista.getLblOrden().setVisible(false);
+	}
+	
+	private void showReportPanel() {
+		this.vista.getBtnReporteMusica().setVisible(true);
+		this.vista.getBtnReporteMedioTransporte().setVisible(true);
+		this.vista.getRdbtnOrden().setVisible(true);
+		this.vista.getRdbtnOrden2().setVisible(true);
+		this.vista.getLblOrden().setVisible(true);
 	}
 
 	private void refrescarTablaLocalidades() {
