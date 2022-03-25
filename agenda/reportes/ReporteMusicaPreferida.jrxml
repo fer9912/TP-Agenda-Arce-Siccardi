@@ -28,7 +28,6 @@
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="musica" class="java.lang.String"/>
-	<sortField name="musica"/>
 	<group name="Musica Preferida">
 		<groupExpression><![CDATA[$F{musica}]]></groupExpression>
 		<groupHeader>
