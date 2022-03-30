@@ -307,6 +307,7 @@ public class VentanaEditarPersona extends JFrame
 	}
 
 	public void llenarTiposDeContacto(List<TipoDeContactoDTO> tiposDeContacto) {
+		this.getModelTipos().removeAllElements();
 		for (TipoDeContactoDTO t : tiposDeContacto)
 		{			
 			this.getModelTipos().addElement(t.getIdTipoDeContacto() + " - " + t.getTipoDeContacto());
@@ -315,6 +316,7 @@ public class VentanaEditarPersona extends JFrame
 	}
 	
 	public void llenarLocalidades(List<LocalidadDTO> localidades) {
+		this.getModelLocalidades().removeAllElements();
 		for (LocalidadDTO l : localidades)
 		{
 			this.getModelLocalidades().addElement(l.getIdLocalidad() + " - " + l.getNombreLocalidad());

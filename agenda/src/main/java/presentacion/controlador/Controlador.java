@@ -77,6 +77,9 @@ public class Controlador implements ActionListener {
 
 	private void ventanaAgregar(ActionEvent a) {
 
+		this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
+		this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
+
 		if (this.vista.getVistaSeleccionada() == 1) {
 			this.ventanaPersona.mostrarVentana();
 		}
@@ -94,6 +97,9 @@ public class Controlador implements ActionListener {
 
 	public void ventanaEditar(ActionEvent e) {
 		if (this.vista.getTablaPersonas() != null && this.vista.getTablaPersonas().getSelectedRow() != -1) {
+
+			this.ventanaEditarPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
+			this.ventanaEditarPersona.llenarLocalidades(agenda.obtenerLocalidades());
 
 			int filaSeleccionada = this.vista.getTablaPersonas().getSelectedRow();
 
@@ -417,10 +423,6 @@ public class Controlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.ventanaPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
-		this.ventanaPersona.llenarLocalidades(agenda.obtenerLocalidades());
-		this.ventanaEditarPersona.llenarTiposDeContacto(agenda.obtenerTiposDeContacto());
-		this.ventanaEditarPersona.llenarLocalidades(agenda.obtenerLocalidades());
 		this.tipoDeContactoEnTabla = agenda.obtenerTiposDeContacto();
 		this.localidadesEnTabla = agenda.obtenerLocalidades();
 		this.refrescarTabla();
