@@ -47,7 +47,7 @@ public class ReporteMusicaPreferida
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));	
 		//parametersMap.put("SORT_FIELDS", personas.stream().map(PersonaDTO::getMusica).collect(Collectors.toList()));
     	try		{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "reportes" + File.separator + "ReporteMusicaPreferida.jasper" );
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("ReporteMusicaPreferida.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
 					new JRBeanCollectionDataSource(personas));
     		log.info("Se cargó correctamente el reporte");
